@@ -1,0 +1,395 @@
+fileFormatVersion: 2
+guid: 415ede31bae0991418bec986e54d9762
+timeCreated: 1471960455
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: PlaceholderPlayerSprite_0
+    21300002: PlaceholderPlayerSprite_1
+    21300004: PlaceholderPlayerSprite_2
+    21300006: PlaceholderPlayerSprite_3
+    21300008: PlaceholderPlayerSprite_4
+    21300010: PlaceholderPlayerSprite_5
+    21300012: PlaceholderPlayerSprite_6
+    21300014: PlaceholderPlayerSprite_7
+    21300016: PlaceholderPlayerSprite_8
+    21300018: PlaceholderPlayerSprite_9
+    21300020: PlaceholderPlayerSprite_10
+    21300022: PlaceholderPlayerSprite_11
+    21300024: PlaceholderPlayerSprite_12
+    21300026: PlaceholderPlayerSprite_13
+    21300028: PlaceholderPlayerSprite_14
+    21300030: PlaceholderPlayerSprite_15
+    21300032: PlaceholderPlayerSprite_16
+    21300034: PlaceholderPlayerSprite_17
+    21300036: PlaceholderPlayerSprite_18
+    21300038: PlaceholderPlayerSprite_19
+    21300040: PlaceholderPlayerSprite_20
+    21300042: PlaceholderPlayerSprite_21
+    21300044: PlaceholderPlayerSprite_22
+    21300046: PlaceholderPlayerSprite_23
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 266
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_1
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 266
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_2
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 266
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_3
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 266
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_4
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 266
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_5
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 266
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_6
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 266
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_7
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 266
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 228
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_9
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 228
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_10
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 228
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_11
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 228
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_12
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 228
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_13
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 228
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_14
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 228
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_15
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 228
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 190
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_17
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 190
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_18
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 190
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_19
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 190
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_20
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 190
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_21
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 190
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 152
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PlaceholderPlayerSprite_23
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 152
+        width: 38
+        height: 38
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
