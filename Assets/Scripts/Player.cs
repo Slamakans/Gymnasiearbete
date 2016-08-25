@@ -11,21 +11,9 @@ public class Player : MovingObject {
         animator = GetComponent<Animator>();
     }
 
-	void Update ()
+    protected override void Move(Vector2 dir)
     {
-        float h = Input.GetAxis("Horizontal");
-        if(h != 0)
-        {
-            attachedRigidbody.AddForce(Vector2.right * MovementSpeed * h, ForceMode2D.Force);
-            var hsign = Mathf.Sign(h);
-            var scalesign = Mathf.Sign(transform.localScale.x);
-            if(scalesign != hsign)
-            {
-                var newScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-                transform.localScale = newScale;
-            }
-        }
-
-        animator.SetBool("moving", Mathf.Abs(attachedRigidbody.velocity.x) > 0.15f);
-	}
+        base.Move(dir);
+        animator.SetBool("moving", Mathf.Abs(rb2d.velocity.x) > 0.15f);
+    }
 }
