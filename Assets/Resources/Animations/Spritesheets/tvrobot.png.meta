@@ -1,0 +1,227 @@
+fileFormatVersion: 2
+guid: dafb39ca1d595d74880a37e410f4bdaf
+timeCreated: 1472570820
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: tvrobot_7
+    21300002: tvrobot_1
+    21300004: tvrobot_2
+    21300006: tvrobot_11
+    21300008: tvrobot_4
+    21300010: tvrobot_5
+    21300012: tvrobot_6
+    21300014: tvrobot_13
+    21300016: tvrobot_8
+    21300018: tvrobot_9
+    21300020: tvrobot_12
+    21300022: tvrobot_14
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 128
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tvrobot_7
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 285
+        width: 139
+        height: 187
+      alignment: 9
+      pivot: {x: 0.50000006, y: 0.6109485}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tvrobot_1
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 305
+        width: 200
+        height: 167
+      alignment: 9
+      pivot: {x: 0.43578202, y: 0.57690775}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tvrobot_2
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 285
+        width: 139
+        height: 187
+      alignment: 9
+      pivot: {x: 0.49289227, y: 0.6162317}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tvrobot_11
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 298
+        width: 139
+        height: 174
+      alignment: 9
+      pivot: {x: 0.4994126, y: 0.59042376}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tvrobot_4
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 298
+        width: 139
+        height: 174
+      alignment: 9
+      pivot: {x: 0.50710815, y: 0.59084785}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tvrobot_5
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 43
+        width: 210
+        height: 174
+      alignment: 9
+      pivot: {x: 0.4670677, y: 0.5851697}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tvrobot_6
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 38
+        width: 147
+        height: 179
+      alignment: 9
+      pivot: {x: 0.53360444, y: 0.59382933}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tvrobot_13
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 0
+        width: 172
+        height: 227
+      alignment: 9
+      pivot: {x: 0.40235192, y: 0.6349208}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tvrobot_8
+      rect:
+        serializedVersion: 2
+        x: 849
+        y: 51
+        width: 256
+        height: 216
+      alignment: 9
+      pivot: {x: 0.49999976, y: 0.43139097}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tvrobot_9
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 78
+        width: 139
+        height: 204
+      alignment: 9
+      pivot: {x: 0.50710815, y: 0.3450245}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tvrobot_12
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 298
+        width: 139
+        height: 174
+      alignment: 9
+      pivot: {x: 0.4929931, y: 0.58516985}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tvrobot_14
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 0
+        width: 172
+        height: 227
+      alignment: 9
+      pivot: {x: 0.4023519, y: 0.6349208}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

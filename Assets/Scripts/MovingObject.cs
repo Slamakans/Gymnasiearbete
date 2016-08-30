@@ -6,14 +6,14 @@ public class MovingObject : MonoBehaviour {
     [SerializeField]
     public float MoveForce = 365f;
     public float MaxSpeed = 5f;
-    public float JumpForce = 3f;
+    public float JumpForce = 20f;
     public bool FacingRight = true;
-    protected Rigidbody2D rb2d;
+    public Rigidbody2D rb2d;
     protected bool grounded = false;
     public Transform groundCheck_1;
     public Transform groundCheck_2;
 
-    private bool jump = false;
+    protected bool jump = false;
     
     protected virtual void Start()
     {
@@ -23,11 +23,6 @@ public class MovingObject : MonoBehaviour {
     protected virtual void Update()
     {
         grounded = !!Physics2D.OverlapArea(groundCheck_1.position, groundCheck_2.position, 1 << LayerMask.NameToLayer("Ground"));
-
-        if(Input.GetButtonDown("Jump") && grounded)
-        {
-            jump = true;
-        }
     }
 
     protected virtual void FixedUpdate()
