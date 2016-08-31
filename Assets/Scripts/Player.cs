@@ -9,6 +9,8 @@ public class Player : MovingObject {
 
     public bool grabbing = false;
 
+    public bool Slides = false;
+
     public Transform StonePlayer;
 
     protected override void Start()
@@ -21,6 +23,7 @@ public class Player : MovingObject {
     protected override void Move(Vector2 dir)
     {
         if (grabbing) return;
+        if (dir.x == 0 && grounded && !Slides) rb2d.velocity = new Vector2(0, rb2d.velocity.y);
         base.Move(dir);
         animator.SetBool("moving", Mathf.Abs(rb2d.velocity.x) > 0.15f);
     }
