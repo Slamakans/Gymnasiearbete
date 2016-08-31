@@ -12,6 +12,8 @@ public class Player : MovingObject {
     public bool Slides = false;
 
     public Transform StonePlayer;
+    private int stoneifications = 4;
+    public int GetStoneifications() { return stoneifications; }
 
     protected override void Start()
     {
@@ -54,13 +56,14 @@ public class Player : MovingObject {
         else if (stoned)
         {
             stoned = false;
+            stoneifications -= 1;
             Instantiate(StonePlayer, transform.position, Quaternion.identity, transform.parent);
             transform.position = spawnPoint;
             rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
             grabbing = false;
             animator.SetBool("grabbing", grabbing);
         }
-        else if (Input.GetButtonDown("Stoneify"))
+        else if (Input.GetButtonDown("Stoneify") && stoneifications > 0)
         {
             animator.SetTrigger("stoneify");
         }
