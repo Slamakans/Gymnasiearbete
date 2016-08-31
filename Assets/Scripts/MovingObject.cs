@@ -14,6 +14,8 @@ public class MovingObject : MonoBehaviour {
     public Transform groundCheck_2;
 
     protected bool jump = false;
+
+    public bool IsGrounded() { return grounded; }
     
     protected virtual void Start()
     {
