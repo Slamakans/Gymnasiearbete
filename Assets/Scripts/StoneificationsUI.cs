@@ -32,6 +32,6 @@ public class StoneificationsUI : MonoBehaviour {
 
     Vector3 GetPos()
     {
-        return new Vector3(50f + (images.Count * 50f), -50f, 0);
+        return new Vector3(200f + (images.Count * 50f), -50f, 0);
     }
 }
