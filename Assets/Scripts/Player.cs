@@ -2,7 +2,8 @@
 using System.Collections;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class Player : MovingObject {
+public class Player : MovingObject
+{
     private Animator animator;
     private Vector3 spawnPoint;
     private bool stoned = false;
@@ -12,6 +13,7 @@ public class Player : MovingObject {
     public bool Slides = false;
 
     public Transform StonePlayer;
+    [SerializeField]
     private int stoneifications = 4;
     public int GetStoneifications() { return stoneifications; }
 
