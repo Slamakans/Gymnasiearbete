@@ -59,7 +59,7 @@ public class StoneificationsUI_Number : MonoBehaviour
             }
         }
 
-        GetComponent<Image>().sprite = numbers[index];
+        if(index >= 0) GetComponent<Image>().sprite = numbers[index];
 
         cur = player.GetStoneifications();
 	}

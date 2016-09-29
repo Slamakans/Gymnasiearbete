@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Player : MovingObject
@@ -9,6 +9,7 @@ public class Player : MovingObject
     private bool stoned = false;
 
     public bool grabbing = false;
+    private GameObject grabbedLedge; // Use this to connect the new TV to the grabbed TV? idk we gonna have a thunker about this one
 
     public bool Slides = false;
 
@@ -40,6 +41,12 @@ public class Player : MovingObject
         if (Input.GetButtonDown("Jump") && (grounded || grabbing))
         {
             jump = true;
+        }
+
+        if (Input.GetButtonDown("Restart"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            return;
         }
 
         if (grabbing && jump)
