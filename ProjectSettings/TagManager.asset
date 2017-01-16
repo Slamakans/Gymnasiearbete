@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Platform
   - Ledge
+  - LevelImage
   layers:
   - Default
   - TransparentFX

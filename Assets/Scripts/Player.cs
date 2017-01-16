@@ -9,13 +9,16 @@ public class Player : MovingObject
     private bool stoned = false;
 
     public bool grabbing = false;
-    private GameObject grabbedLedge; // Use this to connect the new TV to the grabbed TV? idk we gonna have a thunker about this one
+    // Use this to connect the new TV to the grabbed TV? idk we gonna have a thunker about this one
+    private GameObject grabbedLedge;
 
     public bool Slides = false;
 
     public Transform StonePlayer;
     [SerializeField]
-    private int stoneifications = 4;
+    public int stoneifications = 4;
+
+    // Left in for backwards compatibility lmao
     public int GetStoneifications() { return stoneifications; }
 
     protected override void Start()
@@ -25,12 +28,17 @@ public class Player : MovingObject
         animator = GetComponent<Animator>();
     }
 
-    protected override void Move(Vector2 dir)
+    protected override void Move(Vector2 dir, float modifier = 1)
     {
         if (grabbing) return;
         if (dir.x == 0 && grounded && !Slides) rb2d.velocity = new Vector2(0, rb2d.velocity.y);
-        base.Move(dir);
+        base.Move(dir, Mathf.Abs(transform.localScale.x / 2));
         animator.SetBool("moving", Mathf.Abs(rb2d.velocity.x) > 0.15f);
+    }
+
+    protected override void Jump(float modifier = 1)
+    {
+        base.Jump(Mathf.Abs(transform.localScale.x) / 2);
     }
 
     protected override void Update()
@@ -49,7 +57,7 @@ public class Player : MovingObject
             return;
         }
 
-        if (grabbing && jump)
+        if (grabbing && (jump || Input.GetButton("Drop Down")))
         {
             rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
             grabbing = false;
@@ -66,7 +74,8 @@ public class Player : MovingObject
         {
             stoned = false;
             stoneifications -= 1;
-            Instantiate(StonePlayer, transform.position, Quaternion.identity, transform.parent);
+            Transform stone = Instantiate(StonePlayer, transform.position, Quaternion.identity, transform.parent) as Transform;
+            stone.localScale = transform.localScale;
             transform.position = spawnPoint;
             rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
             grabbing = false;
