@@ -45,17 +45,22 @@ public class Player : MovingObject
     {
         if (grabbing) return;
         if (dir.x == 0 && grounded && !Slides) rb2d.velocity = new Vector2(0, rb2d.velocity.y);
-        base.Move(dir, Mathf.Abs(transform.localScale.x / 2), MoveForce / (grounded ? 1 : 30));
+        base.Move(dir, Mathf.Abs(transform.localScale.x / 2), MoveForce); // / (grounded ? 1 : 30));
         animator.SetBool("moving", Mathf.Abs(rb2d.velocity.x) > 0.15f);
     }
 
     protected override void Jump(float modifier = 1)
     {
-        base.Jump(Mathf.Abs(transform.localScale.x) / 2);
         int wall = transform.localScale.x < 0 ? 0 : 1;
-        if (touchingWall && canJumpWall[wall])
+        bool performWallJump = touchingWall && canJumpWall[wall] & !grabbing && !grounded;
+
+        LetGo();
+
+        base.Jump(Mathf.Abs(transform.localScale.x) / 2 * (performWallJump ? 1f : 1f));
+
+        if (performWallJump)
         {
-            base.Move(new Vector2(-transform.localScale.x, 0), 1);
+            base.Move(new Vector2(-transform.localScale.x, 0), 2);
             touchingWall = false;
             canJumpWall[wall] = false;
             StartCoroutine(ResetWall(wall));
@@ -66,6 +71,8 @@ public class Player : MovingObject
     {
         base.Update();
         animator.SetBool("grabbing", grabbing);
+
+        Debug.Log("left: " + canJumpWall[0] + ",  right: " + canJumpWall[1]);
 
         touchingWall = !!Physics2D.Linecast(transform.position, wallCheck.position, 1 << LayerMask.NameToLayer("Ground")).collider && canJumpWall[transform.localScale.x < 0 ? 0 : 1];
 
@@ -80,11 +87,9 @@ public class Player : MovingObject
             return;
         }
 
-        if (grabbing && (jump || Input.GetButton("Drop Down")))
+        if (grabbing && Input.GetButton("Drop Down"))
         {
-            rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
-            grabbing = false;
-            animator.SetBool("grabbing", grabbing);
+            LetGo();
         }
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stoneify"))
@@ -115,5 +120,12 @@ public class Player : MovingObject
     {
         yield return new WaitUntil(() => grabbing || touchingWall || grounded);
         canJumpWall[wall] = true;
+    }
+
+    protected void LetGo()
+    {
+        rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+        grabbing = false;
+        animator.SetBool("grabbing", grabbing);
     }
 }

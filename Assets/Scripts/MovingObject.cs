@@ -39,7 +39,8 @@ public class MovingObject : MonoBehaviour {
 
     protected virtual void Jump(float modifier = 1)
     {
-        rb2d.AddForce(new Vector2(0f, JumpForce * modifier), ForceMode2D.Impulse);
+        Vector2 prev = rb2d.velocity;
+        rb2d.velocity = new Vector2(prev.x, JumpForce * modifier);
         jump = false;
     }
 
