@@ -69,28 +69,21 @@ public class CameraScript : MonoBehaviour
         }
         else timePassed = InitialDelay;
 
-        if (ConfineToBounds(levelImage.GetComponent<SpriteRenderer>().bounds))
-        {
-            SmoothFollowPlayer();
-        }
+        SmoothFollowPlayer();
+        ConfineToBounds(levelImage.GetComponent<SpriteRenderer>().bounds);
     }
 
     private bool ConfineToBounds(Bounds bounds)
     {
         Debug.Log("Image height: " + bounds.size.y);
         float vertExtent = Camera.main.orthographicSize;
-        float horzExtent = vertExtent * Screen.width / Screen.height;
-
-        float minY = vertExtent - (bounds.size.y / 2f) + bounds.extents.y / 2;
-        float maxY = (bounds.size.y / 2f) - vertExtent + bounds.extents.y / 2;
-        float minX = horzExtent - (bounds.size.x / 2f) + bounds.extents.x / 2;
-        float maxX = (bounds.size.x / 2f) - horzExtent + bounds.extents.x / 2;
-        Debug.Log("minY: " + minY);
-        Debug.Log("maxY: " + maxY);
-        Debug.Log("minX: " + minX);
-        Debug.Log("maxX: " + maxX);
+        float horzExtent = vertExtent *  Screen.width / Screen.height;
+        float minX = (horzExtent - bounds.size.x / 2f);
+        float maxX = (bounds.size.x / 2f - horzExtent);
+        float minY = (vertExtent - bounds.size.y / 2f);
+        float maxY = (bounds.size.y / 2f - vertExtent);
         Vector3 p = transform.position;
-        p.x = Mathf.Clamp(p.x, minX, maxX);
+        p.x = Mathf.Clamp(p.x, minX - 9, maxX + 9);
         p.y = Mathf.Clamp(p.y, minY, maxY);
         bool hadToConfine = p.x != transform.position.x || p.y != transform.position.y;
         transform.position = p;

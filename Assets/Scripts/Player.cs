@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Player : MovingObject
@@ -8,7 +10,13 @@ public class Player : MovingObject
     private Vector3 spawnPoint;
     private bool stoned = false;
 
+    public Transform wallCheck;
+
     public bool grabbing = false;
+    public bool touchingWall = false;
+
+    private bool[] canJumpWall = new bool[] { true, true };
+
     // Use this to connect the new TV to the grabbed TV? idk we gonna have a thunker about this one
     private GameObject grabbedLedge;
 
@@ -28,17 +36,30 @@ public class Player : MovingObject
         animator = GetComponent<Animator>();
     }
 
-    protected override void Move(Vector2 dir, float modifier = 1)
+    internal void SetSpawn(Vector3 position)
+    {
+        spawnPoint = position;
+    }
+
+    protected override void Move(Vector2 dir, float modifier = 1, float force = 0)
     {
         if (grabbing) return;
         if (dir.x == 0 && grounded && !Slides) rb2d.velocity = new Vector2(0, rb2d.velocity.y);
-        base.Move(dir, Mathf.Abs(transform.localScale.x / 2));
+        base.Move(dir, Mathf.Abs(transform.localScale.x / 2), MoveForce / (grounded ? 1 : 30));
         animator.SetBool("moving", Mathf.Abs(rb2d.velocity.x) > 0.15f);
     }
 
     protected override void Jump(float modifier = 1)
     {
         base.Jump(Mathf.Abs(transform.localScale.x) / 2);
+        int wall = transform.localScale.x < 0 ? 0 : 1;
+        if (touchingWall && canJumpWall[wall])
+        {
+            base.Move(new Vector2(-transform.localScale.x, 0), 1);
+            touchingWall = false;
+            canJumpWall[wall] = false;
+            StartCoroutine(ResetWall(wall));
+        }
     }
 
     protected override void Update()
@@ -46,7 +67,9 @@ public class Player : MovingObject
         base.Update();
         animator.SetBool("grabbing", grabbing);
 
-        if (Input.GetButtonDown("Jump") && (grounded || grabbing))
+        touchingWall = !!Physics2D.Linecast(transform.position, wallCheck.position, 1 << LayerMask.NameToLayer("Ground")).collider && canJumpWall[transform.localScale.x < 0 ? 0 : 1];
+
+        if (Input.GetButtonDown("Jump") && (grounded || grabbing || touchingWall))
         {
             jump = true;
         }
@@ -85,5 +108,12 @@ public class Player : MovingObject
         {
             animator.SetTrigger("stoneify");
         }
+    }
+
+    // wall == 0 = left, wall == 1 = right
+    protected IEnumerator ResetWall(int wall)
+    {
+        yield return new WaitUntil(() => grabbing || touchingWall || grounded);
+        canJumpWall[wall] = true;
     }
 }

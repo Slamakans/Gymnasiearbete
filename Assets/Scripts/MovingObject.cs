@@ -43,12 +43,14 @@ public class MovingObject : MonoBehaviour {
         jump = false;
     }
 
-    protected virtual void Move(Vector2 dir, float modifier = 1)
+    protected virtual void Move(Vector2 dir, float modifier = 1, float force = 0)
     {
+        if (force == 0) force = MoveForce;
+
         float h = dir.x;
 
         if (h != 0)
-            rb2d.AddForce(Vector2.right * h * MoveForce * modifier);
+            rb2d.AddForce(Vector2.right * h * force * modifier);
 
         if (Mathf.Abs(rb2d.velocity.x) > MaxSpeed * modifier)
             rb2d.velocity = new Vector2(Mathf.Sign(rb2d.velocity.x) * MaxSpeed * modifier, rb2d.velocity.y);

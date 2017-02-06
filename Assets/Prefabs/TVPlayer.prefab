@@ -78,6 +78,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000014237064824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000014158001214}
+  m_Layer: 0
+  m_Name: wallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4000010568738226
 Transform:
   m_ObjectHideFlags: 1
@@ -124,15 +139,29 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012848951134}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.48, y: -8.79, z: -0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: -7.26, y: -12.62, z: -0}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012108409314}
   - {fileID: 4000010568738226}
   - {fileID: 4000011785478278}
+  - {fileID: 4000014158001214}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!4 &4000014158001214
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014237064824}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.64, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000012845723040}
+  m_RootOrder: 3
 --- !u!50 &50000010434416936
 Rigidbody2D:
   serializedVersion: 2
@@ -224,7 +253,9 @@ MonoBehaviour:
   rb2d: {fileID: 0}
   groundCheck_1: {fileID: 4000010568738226}
   groundCheck_2: {fileID: 4000011785478278}
+  wallCheck: {fileID: 4000014158001214}
   grabbing: 0
+  touchingWall: 0
   Slides: 0
   StonePlayer: {fileID: 4000010034754048, guid: e987428a159600a48924a14cfcbfafb2,
     type: 2}
