@@ -59,7 +59,7 @@ public class CameraScript : MonoBehaviour
         }
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (InitialDelay - timePassed > 0)
         {
@@ -75,7 +75,7 @@ public class CameraScript : MonoBehaviour
 
     private bool ConfineToBounds(Bounds bounds)
     {
-        Debug.Log("Image height: " + bounds.size.y);
+        // Debug.Log("Image height: " + bounds.size.y);
         float vertExtent = Camera.main.orthographicSize;
         float horzExtent = vertExtent *  Screen.width / Screen.height;
         float minX = (horzExtent - bounds.size.x / 2f);
@@ -92,13 +92,15 @@ public class CameraScript : MonoBehaviour
 
     private void SmoothFollowPlayer()
     {
-        var curSize = GetComponent<Camera>().orthographicSize;
-        if (Mathf.Abs(curSize - TargetOrthographicSize) < 0.2f) GetComponent<Camera>().orthographicSize = TargetOrthographicSize;
-        else GetComponent<Camera>().orthographicSize = Mathf.Lerp(curSize, TargetOrthographicSize, 0.0175f);
+        Camera cam = GetComponent<Camera>();
+        var curSize = cam.orthographicSize;
+        if (Mathf.Abs(curSize - TargetOrthographicSize) < 0.2f) cam.orthographicSize = TargetOrthographicSize;
+        else cam.orthographicSize = Mathf.Lerp(curSize, TargetOrthographicSize, 0.0175f);
+
         if (target)
         {
-            Vector3 point = GetComponent<Camera>().WorldToViewportPoint(target.position);
-            Vector3 delta = target.position - GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z)); // (new Vector3(0.5, 0.5, point.z));
+            Vector3 point = cam.WorldToViewportPoint(target.position);
+            Vector3 delta = target.position - cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z)); // (new Vector3(0.5, 0.5, point.z));
             Vector3 destination = transform.position + delta;
             transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
         }
