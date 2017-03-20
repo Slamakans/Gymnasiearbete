@@ -50,7 +50,7 @@ public class Player : MovingObject
     {
         if (grabbing) return;
         if (dir.x == 0 && grounded && !Slides) rb2d.velocity = new Vector2(0, rb2d.velocity.y);
-		base.Move(dir, Mathf.Abs(transform.localScale.x / 2) * (sprinting ? 1.75f : 1f), MoveForce); // / (grounded ? 1 : 30));
+		base.Move(dir, Mathf.Abs(transform.localScale.x / 2) * ((sprinting || !grounded) ? 1.75f : 1f), MoveForce); // / (grounded ? 1 : 30));
         animator.SetBool("moving", Mathf.Abs(rb2d.velocity.x) > 0.15f);
     }
 
@@ -88,7 +88,8 @@ public class Player : MovingObject
             jump = true;
         }
 
-		sprinting = grounded && !grabbing && Input.GetButton("Sprint");
+		sprinting = !grabbing && Input.GetButton("Sprint");
+        animator.SetBool("running", sprinting); // consistent af shut up
 
         rb2d.gravityScale = touchingWall && rb2d.velocity.y <= 0 ? wallSlideGravityScale : originalGravityScale;
 
