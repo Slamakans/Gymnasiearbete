@@ -8,23 +8,23 @@ public class GrabberScript : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Enter");
+        // Debug.Log("Enter");
         player = transform.parent;
         var playerScript = player.GetComponent<Player>();
         if (other.tag == "Ledge")
         {
             if (playerScript.IsGrounded()) return;
-            Debug.Log("Not on Ground");
+            // Debug.Log("Not on Ground");
             if (playerScript.rb2d.velocity.y < 0)
             {
                 Grab(other);
             }
             else
             {
-                Debug.Log("GOING UP UP UP UP HEYO");
+                // Debug.Log("GOING UP UP UP UP HEYO");
                 waiting = other;
                 StartCoroutine(GrabWhenFalling(other));
-                Debug.Log("Started Coroutine");
+                // Debug.Log("Started Coroutine");
             }
         }
     }
@@ -34,21 +34,21 @@ public class GrabberScript : MonoBehaviour {
         if (other == waiting)
         {
             left = true;
-            Debug.Log("Exit");
+            // Debug.Log("Exit");
         }
     }
 
     private IEnumerator GrabWhenFalling(Collider2D other)
     {
-        Debug.Log("GrabWhenFalling Start");
+        // Debug.Log("GrabWhenFalling Start");
         yield return new WaitUntil(() => player.GetComponent<Player>().rb2d.velocity.y < 0);
         if (!left)
         {
-            Debug.Log("FINNA GRAB");
+            // Debug.Log("FINNA GRAB");
             Grab(other);
             waiting = null;
         }
-        Debug.Log("GrabWhenFalling End");
+        // Debug.Log("GrabWhenFalling End");
     }
 
     private void Grab(Collider2D other)
@@ -66,6 +66,6 @@ public class GrabberScript : MonoBehaviour {
         transform.parent = player;
 
         player.GetComponent<Player>().grabbing = true;
-        Debug.Log("GRABBED");
+        // Debug.Log("GRABBED");
     }
 }

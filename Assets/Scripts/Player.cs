@@ -9,6 +9,8 @@ public class Player : MovingObject
     private Animator animator;
     private Vector3 spawnPoint;
     private bool stoned = false;
+    [SerializeField]
+    private bool sprintJumping = false;
 
     private float originalGravityScale;
     public float wallSlideGravityScale = 3f;
@@ -50,7 +52,7 @@ public class Player : MovingObject
     {
         if (grabbing) return;
         if (dir.x == 0 && grounded && !Slides) rb2d.velocity = new Vector2(0, rb2d.velocity.y);
-		base.Move(dir, Mathf.Abs(transform.localScale.x / 2) * ((sprinting || !grounded) ? 1.75f : 1f), MoveForce); // / (grounded ? 1 : 30));
+		base.Move(dir, Mathf.Abs(transform.localScale.x / 2) * ((sprinting || sprintJumping) ? 1.75f : 1f), MoveForce); // / (grounded ? 1 : 30));
         animator.SetBool("moving", Mathf.Abs(rb2d.velocity.x) > 0.15f);
     }
 
@@ -62,6 +64,11 @@ public class Player : MovingObject
         LetGo();
 
         base.Jump(Mathf.Abs(transform.localScale.x) / 2 * (performWallJump ? 1f : 1f));
+
+        if (sprinting)
+        {
+            StartCoroutine(SprintJump());
+        }
 
         if (performWallJump)
         {
@@ -77,11 +84,12 @@ public class Player : MovingObject
         base.Update();
         animator.SetBool("grabbing", grabbing);
 
-        Debug.Log(sprinting);
+        // Debug.Log(sprinting);
 
         // Debug.Log("left: " + canJumpWall[0] + ",  right: " + canJumpWall[1]);
 
         touchingWall = !!Physics2D.Linecast(transform.position, wallCheck.position, 1 << LayerMask.NameToLayer("Ground")).collider && canJumpWall[transform.localScale.x < 0 ? 0 : 1];
+        animator.SetBool("touching_wall", touchingWall);
 
 		if ((grounded || grabbing || touchingWall) && Input.GetButtonDown("Jump"))
         {
@@ -139,5 +147,17 @@ public class Player : MovingObject
         rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
         grabbing = false;
         animator.SetBool("grabbing", grabbing);
+    }
+
+    protected IEnumerator SprintJump()
+    {
+        bool prev = transform.localScale.x > 0;
+        // prev != transform.localScale.x > 0 is true when the orientation changes
+        sprintJumping = true;
+        yield return new WaitForSeconds(0.15f);
+        Debug.Log("Waiting until");
+        yield return new WaitUntil(() => grounded || touchingWall || (prev != transform.localScale.x > 0) || grabbing);
+        Debug.Log("Wait finished");
+        sprintJumping = false;
     }
 }
