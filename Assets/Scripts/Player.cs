@@ -152,18 +152,21 @@ public class Player : MovingObject
         animator.SetTrigger("die");
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Death"));
         yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Death"));
+        rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
         transform.position = spawnPoint;
         yield return new WaitUntil(() => {
             Vector2 a = transform.position;
             Vector2 b = Camera.main.transform.position;
             float distance = (a - b).magnitude;
-            Debug.Log(distance);
             return distance < 0.01f;
         });
         yield return new WaitForSeconds(0.15f);
         animator.SetTrigger("spawn");
         rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+        yield return new WaitWhile(() => {
+            Debug.Log(animator.GetCurrentAnimatorStateInfo(0).fullPathHash);
+            return animator.GetCurrentAnimatorStateInfo(0).IsName("Spawn") || animator.GetCurrentAnimatorStateInfo(0).IsName("Invisible");
+         });
         rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
@@ -177,7 +180,6 @@ public class Player : MovingObject
     {
         yield return new WaitUntil(() => grabbing || touchingWall || grounded);
         canJumpWall[wall] = true;
-        Debug.Log("Reset wall: " + wall);
     }
 
     protected void LetGo()
@@ -193,9 +195,7 @@ public class Player : MovingObject
         // prev != transform.localScale.x > 0 is true when the orientation changes
         sprintJumping = true;
         yield return new WaitForSeconds(0.15f);
-        Debug.Log("Waiting until");
         yield return new WaitUntil(() => grounded || touchingWall || (prev != transform.localScale.x > 0) || grabbing);
-        Debug.Log("Wait finished");
         sprintJumping = false;
     }
 }
