@@ -41,6 +41,8 @@ public class Player : MovingObject
         spawnPoint = transform.position;
         animator = GetComponent<Animator>();
         originalGravityScale = rb2d.gravityScale;
+
+        StartCoroutine(Die());
     }
 
     internal void SetSpawn(Vector3 position)
@@ -53,7 +55,7 @@ public class Player : MovingObject
         if (grabbing) return;
         if (dir.x == 0 && grounded && !Slides) rb2d.velocity = new Vector2(0, rb2d.velocity.y);
 		base.Move(dir, Mathf.Abs(transform.localScale.x / 2) * ((sprinting || sprintJumping) ? 1.75f : 1f), MoveForce); // / (grounded ? 1 : 30));
-        animator.SetBool("moving", Mathf.Abs(rb2d.velocity.x) > 0.15f);
+        animator.SetBool("moving", Mathf.Abs(rb2d.velocity.x) > 0.075f);
     }
 
     protected override void Jump(float modifier = 1)
@@ -83,6 +85,14 @@ public class Player : MovingObject
     {
         base.Update();
         animator.SetBool("grabbing", grabbing);
+        animator.SetBool("grounded", grounded);
+        animator.SetBool("falling", rb2d.velocity.y < 0f && !grounded);
+
+        if (transform.position.y < -200)
+        {
+            Kill();
+            return;
+        }
 
         // Debug.Log(sprinting);
 
@@ -91,7 +101,7 @@ public class Player : MovingObject
         touchingWall = !!Physics2D.Linecast(transform.position, wallCheck.position, 1 << LayerMask.NameToLayer("Ground")).collider && canJumpWall[transform.localScale.x < 0 ? 0 : 1];
         animator.SetBool("touching_wall", touchingWall);
 
-		if ((grounded || grabbing || touchingWall) && Input.GetButtonDown("Jump"))
+		if ((grounded || grabbing || touchingWall) && Input.GetButtonDown("Jump") && rb2d.constraints != RigidbodyConstraints2D.FreezePositionX)
         {
             jump = true;
         }
@@ -133,6 +143,30 @@ public class Player : MovingObject
         {
             animator.SetTrigger("stoneify");
         }
+    }
+
+    protected IEnumerator Die()
+    {
+        rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+        animator.SetTrigger("die");
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Death"));
+        yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Death"));
+        transform.position = spawnPoint;
+        yield return new WaitUntil(() => {
+            float p1 = transform.position.x;
+            float p2 = Camera.main.transform.position.x;
+            float distance = Mathf.Abs(p1 - p2);
+            Debug.Log(distance);
+            return distance < 0.1f;
+        });
+        animator.SetTrigger("spawn");
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+        rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    public void Kill()
+    {
+        StartCoroutine(Die());
     }
 
     // wall == 0 = left, wall == 1 = right

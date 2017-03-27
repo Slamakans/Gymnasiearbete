@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Collections.Generic;
 
 public class CameraScript : MonoBehaviour
 {
@@ -13,10 +15,17 @@ public class CameraScript : MonoBehaviour
     private float timePassed = 0;
 
     private GameObject levelImage;
+    private Player player;
+
+    public bool Frozen = true;
+    private bool panning = false;
+
+    public Transform[] waypoints = new Transform[] { };
 
     void Start()
     {
         levelImage = GameObject.FindGameObjectWithTag("LevelImage");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
         // set the desired aspect ratio (the values in this example are
         // hard-coded for 4:3, but you could make them into public
@@ -57,20 +66,69 @@ public class CameraScript : MonoBehaviour
 
             camera.rect = r;
         }
+
+        StartCoroutine(PanWaypointsAndUnfreeze());
     }
 
     void FixedUpdate()
     {
-        if (InitialDelay - timePassed > 0)
+        if (!Frozen)
         {
-            timePassed += Time.deltaTime;
+            if (!panning) SmoothFollowPlayer();
             ConfineToBounds(levelImage.GetComponent<SpriteRenderer>().bounds);
-            return;
         }
-        else timePassed = InitialDelay;
+    }
 
-        SmoothFollowPlayer();
-        ConfineToBounds(levelImage.GetComponent<SpriteRenderer>().bounds);
+    void LateUpdate()
+    {
+        // Panning is done after FixedUpdate's ConfineToBounds call, so we need to do it again here
+        if (panning)
+        {
+            ConfineToBounds(levelImage.GetComponent<SpriteRenderer>().bounds);
+        }
+    }
+
+    private IEnumerator PanWaypointsAndUnfreeze()
+    {
+        panning = true;
+        while (Frozen)
+        {
+            if (InitialDelay - timePassed > 0)
+            {
+                timePassed += Time.deltaTime;
+                // ConfineToBounds(levelImage.GetComponent<SpriteRenderer>().bounds);
+                player.rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
+            }
+            else
+            {
+                timePassed = InitialDelay;
+                Frozen = false;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+
+        if (waypoints.Length == 0)
+        {
+            panning = false;
+        }
+        else
+        {
+            foreach (Transform t in waypoints)
+            {
+                bool done = false;
+                StartCoroutine(PanToTransform(t, trans => done = true));
+                yield return new WaitUntil(() => done);
+                panning = true;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+            panning = false;
+        }
+
+        // yield return new WaitUntil(() => );
+        player.GetComponent<Animator>().SetTrigger("spawn");
+        yield return new WaitWhile(() => player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Spawn"));
+        player.rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     private bool ConfineToBounds(Bounds bounds)
@@ -92,17 +150,43 @@ public class CameraScript : MonoBehaviour
 
     private void SmoothFollowPlayer()
     {
+        SmoothFollowTransform(target);
+    }
+
+    private void SmoothFollowTransform(Transform t)
+    {
+        SmoothFollowTransformWithDamp(t, dampTime);
+    }
+
+    private void SmoothFollowTransformWithDamp(Transform t, float damping)
+    {
         Camera cam = GetComponent<Camera>();
         var curSize = cam.orthographicSize;
         if (Mathf.Abs(curSize - TargetOrthographicSize) < 0.2f) cam.orthographicSize = TargetOrthographicSize;
         else cam.orthographicSize = Mathf.Lerp(curSize, TargetOrthographicSize, 0.0175f);
 
-        if (target)
+        if (t)
         {
-            Vector3 point = cam.WorldToViewportPoint(target.position);
-            Vector3 delta = target.position - cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z)); // (new Vector3(0.5, 0.5, point.z));
+            Vector3 point = cam.WorldToViewportPoint(t.position);
+            Vector3 delta = t.position - cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z)); // (new Vector3(0.5, 0.5, point.z));
             Vector3 destination = transform.position + delta;
-            transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
+            transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, damping);
         }
+    }
+
+    public IEnumerator PanToTransform(Transform t, Func<Transform, bool> callback)
+    {
+        panning = true;
+        while (Mathf.Abs(transform.position.x - t.position.x) > 0.15f)
+        {
+            SmoothFollowTransformWithDamp(t, Mathf.Max((transform.position - t.position).magnitude / 60f, 0.15f));
+            yield return new WaitForFixedUpdate();
+        }
+
+        if (callback != null)
+        {
+            callback(t);
+        }
+        panning = false;
     }
 }

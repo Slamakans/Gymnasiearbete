@@ -100,11 +100,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014235441946}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.546, y: -1.036, z: 0}
+  m_LocalPosition: {x: -0.546, y: -1.016, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000012845723040}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000011785478278
 Transform:
@@ -113,11 +113,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010881048756}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.526, y: -1.036, z: 0}
+  m_LocalPosition: {x: 0.526, y: -1.015, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000012845723040}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000012108409314
 Transform:
@@ -125,12 +125,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013027250568}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.604, y: 0.59, z: 5}
-  m_LocalScale: {x: 1.25, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.294, y: 0.09999975, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000012845723040}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000012845723040
 Transform:
@@ -139,13 +139,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012848951134}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.9, y: -12.4, z: -0}
+  m_LocalPosition: {x: -0.35, y: -17.03, z: -0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
-  - {fileID: 4000012108409314}
   - {fileID: 4000010568738226}
   - {fileID: 4000011785478278}
   - {fileID: 4000014158001214}
+  - {fileID: 4000012108409314}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -160,7 +160,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000012845723040}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50000010434416936
 Rigidbody2D:
@@ -195,7 +195,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.41345915
 --- !u!61 &61000013153927792
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -207,9 +207,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0.06033675, y: -0.45608744}
+  m_Offset: {x: -0.001625061, y: -0.45608777}
   serializedVersion: 2
-  m_Size: {x: 1.1887982, y: 1.0675231}
+  m_Size: {x: 1.0648642, y: 1.0675234}
 --- !u!95 &95000013134587784
 Animator:
   serializedVersion: 3
@@ -253,18 +253,20 @@ MonoBehaviour:
   MaxSpeed: 5
   JumpForce: 25
   FacingRight: 1
-  rb2d: {fileID: 0}
+  rb2d: {fileID: 50000010434416936}
+  grounded: 0
   groundCheck_1: {fileID: 4000010568738226}
   groundCheck_2: {fileID: 4000011785478278}
+  sprintJumping: 0
   wallSlideGravityScale: 3
   wallCheck: {fileID: 4000014158001214}
   grabbing: 0
-  touchingWall: 0
+  touchingWall: 1
   sprinting: 0
   Slides: 0
   StonePlayer: {fileID: 4000010034754048, guid: e987428a159600a48924a14cfcbfafb2,
     type: 2}
-  stoneifications: 4
+  stoneifications: 0
 --- !u!212 &212000012896332506
 SpriteRenderer:
   m_ObjectHideFlags: 1

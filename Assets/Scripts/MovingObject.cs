@@ -9,6 +9,8 @@ public class MovingObject : MonoBehaviour {
     public float JumpForce = 20f;
     public bool FacingRight = true;
     public Rigidbody2D rb2d;
+
+    [SerializeField]
     protected bool grounded = false;
     public Transform groundCheck_1;
     public Transform groundCheck_2;
