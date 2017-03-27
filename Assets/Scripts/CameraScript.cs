@@ -141,7 +141,7 @@ public class CameraScript : MonoBehaviour
         float minY = (vertExtent - bounds.size.y / 2f);
         float maxY = (bounds.size.y / 2f - vertExtent);
         Vector3 p = transform.position;
-        p.x = Mathf.Clamp(p.x, minX - 9, maxX + 9);
+        p.x = Mathf.Clamp(p.x, minX - (vertExtent / 2f), maxX + (vertExtent / 2f));
         p.y = Mathf.Clamp(p.y, minY, maxY);
         bool hadToConfine = p.x != transform.position.x || p.y != transform.position.y;
         transform.position = p;

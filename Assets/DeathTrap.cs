@@ -12,7 +12,6 @@ public class DeathTrap : MonoBehaviour {
         Debug.Log(other.tag);
         if (other.tag == "Player")
         {
-            Debug.Log("Trying to kill player");
             other.GetComponent<Player>().Kill();
         }
     }

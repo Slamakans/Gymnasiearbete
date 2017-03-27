@@ -42,7 +42,7 @@ public class Player : MovingObject
         animator = GetComponent<Animator>();
         originalGravityScale = rb2d.gravityScale;
 
-        StartCoroutine(Die());
+        Kill();
     }
 
     internal void SetSpawn(Vector3 position)
@@ -106,7 +106,7 @@ public class Player : MovingObject
             jump = true;
         }
 
-		sprinting = !grabbing && Input.GetButton("Sprint");
+		sprinting = Mathf.Abs(rb2d.velocity.x) > 0.075f && Input.GetButton("Sprint");
         animator.SetBool("running", sprinting); // consistent af shut up
 
         rb2d.gravityScale = touchingWall && rb2d.velocity.y <= 0 ? wallSlideGravityScale : originalGravityScale;
@@ -147,19 +147,22 @@ public class Player : MovingObject
 
     protected IEnumerator Die()
     {
-        rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+        rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
+        animator.ResetTrigger("spawn");
         animator.SetTrigger("die");
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Death"));
         yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Death"));
         transform.position = spawnPoint;
         yield return new WaitUntil(() => {
-            float p1 = transform.position.x;
-            float p2 = Camera.main.transform.position.x;
-            float distance = Mathf.Abs(p1 - p2);
+            Vector2 a = transform.position;
+            Vector2 b = Camera.main.transform.position;
+            float distance = (a - b).magnitude;
             Debug.Log(distance);
-            return distance < 0.1f;
+            return distance < 0.01f;
         });
+        yield return new WaitForSeconds(0.15f);
         animator.SetTrigger("spawn");
+        rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
         rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
@@ -174,6 +177,7 @@ public class Player : MovingObject
     {
         yield return new WaitUntil(() => grabbing || touchingWall || grounded);
         canJumpWall[wall] = true;
+        Debug.Log("Reset wall: " + wall);
     }
 
     protected void LetGo()
