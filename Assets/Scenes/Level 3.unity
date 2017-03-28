@@ -861,7 +861,8 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 739932739}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114845921226009398, guid: e4906ac3143adf0459ed4422ed998b76, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: e4906ac3143adf0459ed4422ed998b76, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &572424806 stripped
@@ -3017,6 +3018,16 @@ Prefab:
     - target: {fileID: 4000012845723040, guid: 6204be43f115cbb48b5de1c6fac47fce, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 50000010434416936, guid: 6204be43f115cbb48b5de1c6fac47fce,
+        type: 2}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50000010434416936, guid: 6204be43f115cbb48b5de1c6fac47fce,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6204be43f115cbb48b5de1c6fac47fce, type: 2}

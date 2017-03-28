@@ -20,6 +20,7 @@ public class Player : MovingObject
     public bool grabbing = false;
     public bool touchingWall = false;
 	public bool sprinting = false;
+    public bool dying = false;
 
     private bool[] canJumpWall = new bool[] { true, true };
 
@@ -42,7 +43,7 @@ public class Player : MovingObject
         animator = GetComponent<Animator>();
         originalGravityScale = rb2d.gravityScale;
 
-        Kill();
+        // Kill();
     }
 
     internal void SetSpawn(Vector3 position)
@@ -88,8 +89,9 @@ public class Player : MovingObject
         animator.SetBool("grounded", grounded);
         animator.SetBool("falling", rb2d.velocity.y < 0f && !grounded);
 
-        if (transform.position.y < -200)
+        if (transform.position.y < -200 && !dying)
         {
+            Debug.Log("dying");
             Kill();
             return;
         }
@@ -143,15 +145,24 @@ public class Player : MovingObject
         {
             animator.SetTrigger("stoneify");
         }
+
+        if (Input.GetKeyDown("t"))
+        {
+            Kill();
+        }
     }
 
     protected IEnumerator Die()
     {
+        dying = true;
         rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
         animator.ResetTrigger("spawn");
         animator.SetTrigger("die");
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Death"));
         yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Death"));
+
+        // Die animation has finished
+
         rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
         transform.position = spawnPoint;
         yield return new WaitUntil(() => {
@@ -160,14 +171,17 @@ public class Player : MovingObject
             float distance = (a - b).magnitude;
             return distance < 0.01f;
         });
+
+        // Player is at spawn, and so is camera
+
         yield return new WaitForSeconds(0.15f);
         animator.SetTrigger("spawn");
         rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
         yield return new WaitWhile(() => {
-            Debug.Log(animator.GetCurrentAnimatorStateInfo(0).fullPathHash);
-            return animator.GetCurrentAnimatorStateInfo(0).IsName("Spawn") || animator.GetCurrentAnimatorStateInfo(0).IsName("Invisible");
+            return animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "PlayerInvisible" || animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "PlayerSpawn";
          });
         rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+        dying = false;
     }
 
     public void Kill()

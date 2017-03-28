@@ -18,6 +18,7 @@ public class CameraScript : MonoBehaviour
     private Player player;
 
     public bool Frozen = true;
+    public bool Confine = true;
     private bool panning = false;
 
     public Transform[] waypoints = new Transform[] { };
@@ -133,6 +134,7 @@ public class CameraScript : MonoBehaviour
 
     private bool ConfineToBounds(Bounds bounds)
     {
+        if (!Confine) return false;
         // Debug.Log("Image height: " + bounds.size.y);
         float vertExtent = Camera.main.orthographicSize;
         float horzExtent = vertExtent *  Screen.width / Screen.height;

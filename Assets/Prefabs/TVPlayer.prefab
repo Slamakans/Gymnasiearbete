@@ -254,7 +254,7 @@ MonoBehaviour:
   JumpForce: 25
   FacingRight: 1
   rb2d: {fileID: 50000010434416936}
-  grounded: 0
+  grounded: 1
   groundCheck_1: {fileID: 4000010568738226}
   groundCheck_2: {fileID: 4000011785478278}
   sprintJumping: 0
@@ -298,7 +298,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 42f86243f43c37043a3d1c15acf97e10, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 434d506bdbbaeb849a96b3b7464faaa6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
