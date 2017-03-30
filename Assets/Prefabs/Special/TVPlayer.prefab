@@ -263,6 +263,7 @@ MonoBehaviour:
   grabbing: 0
   touchingWall: 1
   sprinting: 0
+  dying: 0
   Slides: 0
   StonePlayer: {fileID: 4000010034754048, guid: e987428a159600a48924a14cfcbfafb2,
     type: 2}

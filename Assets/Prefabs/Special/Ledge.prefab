@@ -16,11 +16,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000011720225914}
-  - 61: {fileID: 61000012166798404}
-  - 251: {fileID: 251000013299347758}
+  - component: {fileID: 4000011720225914}
+  - component: {fileID: 61000012166798404}
+  - component: {fileID: 251000013299347758}
   m_Layer: 8
   m_Name: Ledge
   m_TagString: Ledge
@@ -37,10 +37,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.526, y: 0.488, z: 0}
   m_LocalScale: {x: 0.19702554, y: 0.19702554, z: 0.19702554}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &61000012166798404
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -66,6 +66,7 @@ PlatformEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 1
+  m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
   m_SurfaceArc: 180

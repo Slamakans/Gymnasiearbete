@@ -29,10 +29,16 @@ public class DynamicGraphicsScript : MonoBehaviour {
         SpriteRenderer mainRenderer = GetComponent<SpriteRenderer>();
 
         Collider2D topCollider = Physics2D.Raycast(transform.position, Vector2.up, mainRenderer.sprite.bounds.size.y / 1.8f).collider;
-        Collider2D leftCollider = Physics2D.Raycast(transform.position, Vector2.left, mainRenderer.sprite.bounds.size.x / 1.8f).collider;
-        Collider2D rightCollider = Physics2D.Raycast(transform.position, Vector2.right, mainRenderer.sprite.bounds.size.x / 1.8f).collider;
+        Collider2D leftCollider = null;
+        Collider2D rightCollider = null;
 
-        Debug.DrawLine(transform.position, (Vector2) transform.position + (new Vector2(mainRenderer.sprite.bounds.size.x / 1.8f, 0)), Color.blue, 0.02f);
+        if (sideGrassRendererLeft) leftCollider = Physics2D.Raycast(transform.position, Vector2.left, mainRenderer.sprite.bounds.size.x / 1.8f).collider;
+        if (sideGrassRendererRight) rightCollider = Physics2D.Raycast(transform.position, Vector2.right, mainRenderer.sprite.bounds.size.x / 1.8f).collider;
+
+        bool left = leftCollider && leftCollider.CompareTag("Platform");
+        bool right = rightCollider && rightCollider.CompareTag("Platform");
+
+        // Debug.DrawLine(transform.position, (Vector2) transform.position + (new Vector2(mainRenderer.sprite.bounds.size.x / 1.8f, 0)), Color.blue, 0.02f);
 
         Sprite newMain = topCollider && topCollider.CompareTag("Platform") ? DarkSprite : LightSprite;
 
@@ -47,12 +53,23 @@ public class DynamicGraphicsScript : MonoBehaviour {
 
             if (SideGrowth)
             {
-                if (!leftCollider && sideGrassRendererLeft && !sideGrassRendererLeft.sprite) sideGrassRendererLeft.sprite = GrassSprite;
-                else if (leftCollider && sideGrassRendererLeft && sideGrassRendererLeft.sprite) sideGrassRendererLeft.sprite = null;
+                if (!left && !sideGrassRendererLeft.sprite) sideGrassRendererLeft.sprite = GrassSprite;
+                else if (left && sideGrassRendererLeft.sprite) sideGrassRendererLeft.sprite = null;
 
-                Debug.Log(leftCollider);
-                if (!rightCollider && sideGrassRendererRight && !sideGrassRendererRight.sprite) sideGrassRendererRight.sprite = GrassSprite;
-                else if (rightCollider && sideGrassRendererRight && sideGrassRendererRight.sprite) sideGrassRendererRight.sprite = null;
+                if (!right && !sideGrassRendererRight.sprite) sideGrassRendererRight.sprite = GrassSprite;
+                else if (right && sideGrassRendererRight.sprite) sideGrassRendererRight.sprite = null;
+            }
+            else
+            {
+                if (sideGrassRendererLeft && sideGrassRendererLeft.sprite)
+                {
+                    sideGrassRendererLeft.sprite = null;
+                }
+
+                if (sideGrassRendererRight && sideGrassRendererRight.sprite)
+                {
+                    sideGrassRendererRight.sprite = null;
+                }
             }
         }
     }

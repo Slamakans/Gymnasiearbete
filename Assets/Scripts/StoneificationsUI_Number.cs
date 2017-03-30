@@ -21,7 +21,13 @@ public class StoneificationsUI_Number : MonoBehaviour
     }
 
 	void Update () {
-        next = player.GetStoneifications();
+        if (!Player.HasRemote)
+        {
+            GetComponent<Image>().sprite = null;
+            return;
+        }
+
+            next = player.GetStoneifications();
         if (delta == 0) delta = next - cur;
         if (delta <= 0 && index <= 0) delta = 0;
        // Debug.Log("Cur: " + cur + "   Next: " + next + "    Delta: " + delta + "   Index: " + index);

@@ -30,8 +30,10 @@ public class Player : MovingObject
     public bool Slides = false;
 
     public Transform StonePlayer;
-    [SerializeField]
+    // [SerializeField]
     public int stoneifications = 4;
+
+    public static bool HasRemote = false;
 
     // Left in for backwards compatibility lmao
     public int GetStoneifications() { return stoneifications; }
@@ -141,7 +143,7 @@ public class Player : MovingObject
             grabbing = false;
             animator.SetBool("grabbing", grabbing);
         }
-        else if (Input.GetButtonDown("Stoneify") && stoneifications > 0)
+        else if (Player.HasRemote && Input.GetButtonDown("Stoneify") && stoneifications > 0)
         {
             animator.SetTrigger("stoneify");
         }
