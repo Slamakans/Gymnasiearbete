@@ -34,7 +34,7 @@ public class CameraScript : MonoBehaviour
         float targetaspect = 4f / 3f;
 
         // determine the game window's current aspect ratio
-        float windowaspect = (float)Screen.width / (float)Screen.height;
+        float windowaspect = (float) Screen.width / Screen.height;
 
         // current viewport height should be scaled by this amount
         float scaleheight = windowaspect / targetaspect;
@@ -136,12 +136,18 @@ public class CameraScript : MonoBehaviour
     {
         if (!Confine) return false;
         // Debug.Log("Image height: " + bounds.size.y);
+        // X fucked
+        // Y fine
         float vertExtent = Camera.main.orthographicSize;
-        float horzExtent = vertExtent *  Screen.width / Screen.height;
-        float minX = (horzExtent - bounds.size.x / 2f);
-        float maxX = (bounds.size.x / 2f - horzExtent);
+        float horzExtent = vertExtent * ((float) Screen.width / Screen.height);
+        float minX = (bounds.size.x / 2f - horzExtent);
+        float maxX = (horzExtent - bounds.size.x / 2f);
         float minY = (vertExtent - bounds.size.y / 2f);
         float maxY = (bounds.size.y / 2f - vertExtent);
+
+
+        Debug.Log(minX + "   " + maxX + "   " + minY + "   " + maxY);
+
         Vector3 p = transform.position;
         p.x = Mathf.Clamp(p.x, minX - (vertExtent / 2f), maxX + (vertExtent / 2f));
         p.y = Mathf.Clamp(p.y, minY, maxY);

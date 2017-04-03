@@ -53,11 +53,11 @@ public class DynamicGraphicsScript : MonoBehaviour {
 
             if (SideGrowth)
             {
-                if (!left && !sideGrassRendererLeft.sprite) sideGrassRendererLeft.sprite = GrassSprite;
-                else if (left && sideGrassRendererLeft.sprite) sideGrassRendererLeft.sprite = null;
+                if (!left && sideGrassRendererLeft && !sideGrassRendererLeft.sprite) sideGrassRendererLeft.sprite = GrassSprite;
+                else if (left && sideGrassRendererLeft && sideGrassRendererLeft.sprite) sideGrassRendererLeft.sprite = null;
 
-                if (!right && !sideGrassRendererRight.sprite) sideGrassRendererRight.sprite = GrassSprite;
-                else if (right && sideGrassRendererRight.sprite) sideGrassRendererRight.sprite = null;
+                if (!right && sideGrassRendererRight && !sideGrassRendererRight.sprite) sideGrassRendererRight.sprite = GrassSprite;
+                else if (right && sideGrassRendererRight && sideGrassRendererRight.sprite) sideGrassRendererRight.sprite = null;
             }
             else
             {

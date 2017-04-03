@@ -8,7 +8,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class GridSnapScript : MonoBehaviour
 {
-    public float snapValue = 4;
+    public float snapValue = 16;
     public float depth = 0;
 
     void Update()

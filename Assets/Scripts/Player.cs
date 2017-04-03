@@ -34,6 +34,7 @@ public class Player : MovingObject
     public int stoneifications = 4;
 
     public static bool HasRemote = false;
+    public bool startWithRemote = true;
 
     // Left in for backwards compatibility lmao
     public int GetStoneifications() { return stoneifications; }
@@ -44,6 +45,8 @@ public class Player : MovingObject
         spawnPoint = transform.position;
         animator = GetComponent<Animator>();
         originalGravityScale = rb2d.gravityScale;
+
+        if (!HasRemote && startWithRemote) HasRemote = true;
 
         // Kill();
     }
@@ -157,7 +160,7 @@ public class Player : MovingObject
     protected IEnumerator Die()
     {
         dying = true;
-        rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
+        rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         animator.ResetTrigger("spawn");
         animator.SetTrigger("die");
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Death"));
