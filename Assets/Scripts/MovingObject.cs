@@ -51,6 +51,7 @@ public class MovingObject : MonoBehaviour {
         if (force == 0) force = MoveForce;
 
         float h = dir.x;
+        Debug.Log("h: " + h);
 
         if (h != 0)
             rb2d.AddForce(Vector2.right * h * force * modifier);

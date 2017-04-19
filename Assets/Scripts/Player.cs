@@ -174,7 +174,7 @@ public class Player : MovingObject
             Vector2 a = transform.position;
             Vector2 b = Camera.main.transform.position;
             float distance = (a - b).magnitude;
-            return distance < 0.01f;
+            return distance < 0.01f;// || Camera.main.GetComponent<CameraScript>().ConstrainTest();
         });
 
         // Player is at spawn, and so is camera
