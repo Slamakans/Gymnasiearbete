@@ -1,7 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
-using System;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
@@ -21,13 +20,15 @@ public class CameraScript : MonoBehaviour
     public bool Confine = true;
     private bool panning = false;
 
+    public float leftBound, rightBound, bottomBound, topBound;
+
     public Transform[] waypoints = new Transform[] { };
 
     void Start()
     {
         levelImage = GameObject.FindGameObjectWithTag("LevelImage");
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
+        /*
         // set the desired aspect ratio (the values in this example are
         // hard-coded for 4:3, but you could make them into public
         // variables instead so you can set them at design time)
@@ -66,7 +67,7 @@ public class CameraScript : MonoBehaviour
             r.y = 0;
 
             camera.rect = r;
-        }
+        }*/
 
         StartCoroutine(PanWaypointsAndUnfreeze());
     }
@@ -139,12 +140,13 @@ public class CameraScript : MonoBehaviour
         // X fucked
         // Y fine
         float vertExtent = Camera.main.orthographicSize;
-        float horzExtent = vertExtent * ((float) Screen.width / Screen.height);
+        float horzExtent = vertExtent * (Screen.width / (float)Screen.height);
+        Debug.Log(Screen.width + "        " + (float)Screen.height);
 
-        float leftBound = bounds.min.x + horzExtent;
-        float rightBound = bounds.max.x - horzExtent;
-        float bottomBound = bounds.min.y + vertExtent;
-        float topBound = bounds.max.y - vertExtent;
+        leftBound = bounds.min.x + horzExtent;//(horzExtent / 8f) * 5f;// * 0.75f;
+        rightBound = bounds.max.x - horzExtent;//(horzExtent / 8f) * 5f;// * 0.75f;
+        bottomBound = bounds.min.y + vertExtent;
+        topBound = bounds.max.y - vertExtent;
 
         // Debug.Log(minX + "   " + maxX + "   " + minY + "   " + maxY);
 
@@ -152,10 +154,10 @@ public class CameraScript : MonoBehaviour
         Vector3 p = new Vector3(target.position.x, target.position.y, transform.position.z);
         p.x = Mathf.Clamp(p.x, leftBound, rightBound);
         p.y = Mathf.Clamp(p.y, bottomBound, topBound);
-        transform.position = p;
+        // transform.position = p;
 
         bool hadToConfine = p.x != transform.position.x || p.y != transform.position.y;
-        transform.position = p;
+        if (hadToConfine) transform.position = p;
         return hadToConfine;
     }
 
