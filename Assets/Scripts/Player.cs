@@ -94,7 +94,7 @@ public class Player : MovingObject
         animator.SetBool("grounded", grounded);
         animator.SetBool("falling", rb2d.velocity.y < 0f && !grounded);
 
-        if (transform.position.y < -200 && !dying)
+        if (transform.position.y < -60 && !dying)
         {
             Debug.Log("dying");
             Kill();

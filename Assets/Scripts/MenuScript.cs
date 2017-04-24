@@ -1,6 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuScript : MonoBehaviour {
     public Button NEW_GAME;
@@ -12,6 +14,7 @@ public class MenuScript : MonoBehaviour {
     public GameObject PRESS_ANY_KEY_TEXT;
 
     private GameObject[] buttons;
+
     private bool initialized = false;
 
     void Start ()
@@ -25,16 +28,31 @@ public class MenuScript : MonoBehaviour {
 
     void Update ()
     {
-        if (!initialized && Input.anyKeyDown)
+        if (!Game.MAIN_MENU_INITIALIZED && Input.anyKeyDown)
         {
-            PRESS_ANY_KEY_TEXT.SetActive(false);
-            initialized = true;
             InitializeMenu();
+        }
+        else if (Game.MAIN_MENU_INITIALIZED)
+        {
+            if (!initialized) InitializeMenu();
+
+            if (buttons[0].GetComponent<Image>().fillAmount != 1)
+            {
+                foreach (GameObject button in buttons)
+                {
+                    float amt = button.GetComponent<Image>().fillAmount;
+                    button.GetComponent<Image>().fillAmount = Mathf.Lerp(amt, 1f, 0.055f);
+                }
+            }
         }
     }
 
     void InitializeMenu ()
     {
+        initialized = true;
+        PRESS_ANY_KEY_TEXT.SetActive(false);
+        Game.MAIN_MENU_INITIALIZED = true;
+
         NEW_GAME.onClick.AddListener(OnNewGame);
         LEVEL_SELECT.onClick.AddListener(OnLevelSelect);
         HELP.onClick.AddListener(OnHelp);
@@ -43,8 +61,19 @@ public class MenuScript : MonoBehaviour {
 
         foreach (GameObject button in buttons)
         {
+            button.GetComponent<Image>().fillAmount = 0f;
             button.SetActive(true);
         }
+
+        StartCoroutine(EnableEventSystemAfterDelay(0.8f));
+    }
+
+    private IEnumerator EnableEventSystemAfterDelay(float seconds)
+    {
+        yield return new WaitForSecondsRealtime(seconds);
+        GameObject.Find("EventSystem").GetComponent<EventSystem>().sendNavigationEvents = true;
+        yield return new WaitForFixedUpdate();
+        NEW_GAME.Select();
     }
 
     public void OnNewGame ()

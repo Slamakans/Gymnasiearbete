@@ -23,8 +23,12 @@ public class StoneificationsUI_Number : MonoBehaviour
 	void Update () {
         if (!Player.HasRemote)
         {
-            GetComponent<Image>().sprite = null;
+            GetComponent<Image>().color = new Color(0f, 0f, 0f, 0f);
             return;
+        }
+        else if (GetComponent<Image>().color.a == 0)
+        {
+            GetComponent<Image>().color = Color.white;
         }
 
             next = player.GetStoneifications();

@@ -20,6 +20,11 @@ public class LevelSelectScript : MonoBehaviour {
             button.interactable = index < LevelManager.LevelReached || index + 1 == buttons.Length;
             index++;
         }
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     public void Goto (Button button)
