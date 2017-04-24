@@ -11,5 +11,6 @@ public class RemoteControlPickupScript : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         Player.HasRemote = true;
+        Destroy(gameObject);
     }
 }
