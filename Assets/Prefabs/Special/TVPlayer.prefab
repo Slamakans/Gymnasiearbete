@@ -36,9 +36,9 @@ GameObject:
   - component: {fileID: 4000012845723040}
   - component: {fileID: 95000013134587784}
   - component: {fileID: 212000012896332506}
-  - component: {fileID: 61000013153927792}
   - component: {fileID: 50000010434416936}
   - component: {fileID: 114000013978837680}
+  - component: {fileID: 60842868902778938}
   m_Layer: 0
   m_Name: TVPlayer
   m_TagString: Player
@@ -139,7 +139,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012848951134}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 5}
+  m_LocalPosition: {x: -75, y: 3, z: 5}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 4000010568738226}
@@ -180,7 +180,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &58000010988544996
 CircleCollider2D:
@@ -193,11 +193,12 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.41345915
---- !u!61 &61000013153927792
-BoxCollider2D:
+--- !u!60 &60842868902778938
+PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -207,9 +208,27 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0.001625061, y: -0.45608777}
-  serializedVersion: 2
-  m_Size: {x: 1.0648642, y: 1.0675234}
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.54, y: -0.98}
+      - {x: 0.5, y: -0.9891329}
+      - {x: -0.49782562, y: -0.9891329}
+      - {x: -0.54, y: -0.98}
+      - {x: -0.54, y: 0.04}
+      - {x: -0.52, y: 0.08}
+      - {x: 0.52, y: 0.08}
+      - {x: 0.54, y: 0.04}
 --- !u!95 &95000013134587784
 Animator:
   serializedVersion: 3
@@ -267,7 +286,8 @@ MonoBehaviour:
   Slides: 0
   StonePlayer: {fileID: 4000010034754048, guid: e987428a159600a48924a14cfcbfafb2,
     type: 2}
-  stoneifications: 1
+  stoneifications: 0
+  startWithRemote: 0
 --- !u!212 &212000012896332506
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -298,8 +318,13 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 434d506bdbbaeb849a96b3b7464faaa6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
