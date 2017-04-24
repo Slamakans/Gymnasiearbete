@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-[RequireComponent(typeof(BoxCollider2D))]
+//[RequireComponent(typeof(BoxCollider2D))]
 public class Player : MovingObject
 {
     private Animator animator;
@@ -53,7 +53,7 @@ public class Player : MovingObject
 
     internal void SetSpawn(Vector3 position)
     {
-        spawnPoint = position;
+        spawnPoint = new Vector3(position.x, position.y, 5f);
     }
 
     protected override void Move(Vector2 dir, float modifier = 1, float force = 0)
@@ -149,6 +149,18 @@ public class Player : MovingObject
         else if (Player.HasRemote && Input.GetButtonDown("Stoneify") && stoneifications > 0)
         {
             animator.SetTrigger("stoneify");
+            if (grabbing)
+            {
+                if (transform.localScale.x > 0) // facing right
+                {
+                    // transform.position
+                    // try to place the player properly right now it's all misaligned and shit
+                }
+                else
+                {
+
+                }
+            }
         }
 
         if (Input.GetKeyDown("t"))
