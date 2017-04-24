@@ -113,7 +113,7 @@ public class Player : MovingObject
             jump = true;
         }
 
-		sprinting = Mathf.Abs(rb2d.velocity.x) > 0.075f && Input.GetButton("Sprint");
+		sprinting = Mathf.Abs(rb2d.velocity.x) > 0.075f && (Input.GetButton("Sprint") || Input.GetAxis("Sprint") != 0);
         animator.SetBool("running", sprinting); // consistent af shut up
 
         rb2d.gravityScale = touchingWall && rb2d.velocity.y <= 0 ? wallSlideGravityScale : originalGravityScale;
@@ -146,9 +146,10 @@ public class Player : MovingObject
             grabbing = false;
             animator.SetBool("grabbing", grabbing);
         }
-        else if (Player.HasRemote && Input.GetButtonDown("Stoneify") && stoneifications > 0)
+        else if (!grabbing && Player.HasRemote && Input.GetButtonDown("Stoneify") && stoneifications > 0)
         {
             animator.SetTrigger("stoneify");
+            /* skipping this stuff
             if (grabbing)
             {
                 if (transform.localScale.x > 0) // facing right
@@ -160,7 +161,7 @@ public class Player : MovingObject
                 {
 
                 }
-            }
+            }*/
         }
 
         if (Input.GetKeyDown("t"))
