@@ -92,7 +92,8 @@ public class Player : MovingObject
         {
 
             //base.Move(new Vector2(-transform.localScale.x, 0), 2);//, WallJumpForce);
-            rb2d.AddForce(new Vector2(-transform.localScale.x * WallJumpForce * 0.6f * Mathf.Abs(Input.GetAxis("Horizontal")), 0), ForceMode2D.Impulse);
+            // lägg som y-värde för lite kontroll över hur högt man hoppar, kanske normalisera vektorn innan för consistent velocity från wall jumps: 5 * Input.GetAxis("Vertical"))
+            rb2d.AddForce(new Vector2(-transform.localScale.x * WallJumpForce * 0.6f * Mathf.Abs(Input.GetAxis("Horizontal")), 0, ForceMode2D.Impulse);
 
             FacingRight = !FacingRight;
             int scaleSign = (int) Mathf.Sign(transform.localScale.x);
