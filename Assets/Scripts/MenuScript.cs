@@ -44,6 +44,11 @@ public class MenuScript : MonoBehaviour {
                     button.GetComponent<Image>().fillAmount = Mathf.Lerp(amt, 1f, 0.055f);
                 }
             }
+
+            if (Input.GetButtonDown("Back"))
+            {
+                OnExitGame();
+            }
         }
     }
 

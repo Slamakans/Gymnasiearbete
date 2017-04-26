@@ -63,7 +63,7 @@ public class Player : MovingObject
 
     internal void SetSpawn(Vector3 position)
     {
-        spawnPoint = new Vector3(position.x, position.y, 5f);
+        spawnPoint = new Vector3(position.x, position.y, transform.position.z);
     }
 
     protected override void Move(Vector2 dir, float modifier = 1)
@@ -92,7 +92,7 @@ public class Player : MovingObject
         {
 
             //base.Move(new Vector2(-transform.localScale.x, 0), 2);//, WallJumpForce);
-            rb2d.AddForce(new Vector2(-transform.localScale.x * WallJumpForce, 0), ForceMode2D.Impulse);
+            rb2d.AddForce(new Vector2(-transform.localScale.x * WallJumpForce * 0.6f * Mathf.Abs(Input.GetAxis("Horizontal")), 0), ForceMode2D.Impulse);
 
             FacingRight = !FacingRight;
             int scaleSign = (int) Mathf.Sign(transform.localScale.x);
@@ -107,11 +107,37 @@ public class Player : MovingObject
         }
     }
 
+    private bool tugging;
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if (!touchingWall)
+        {
+            tugging = false;
+            Move(new Vector2(Input.GetAxis("Horizontal"), 0));
+        }
+        else
+        {
+            tugging = true;
+            StartCoroutine(TuggAway(Input.GetAxis("Horizontal")));
+        }
+    }
+
+    private IEnumerator TuggAway(float force)
+    {
+        yield return new WaitForSeconds(0.2f);
+        if (tugging)
+        {
+            Move(Vector2.right * force);
+        }
+    }
+
     // private bool spawning = false;
     protected override void Update()
     {
 
-        if (Input.GetKeyDown("escape"))
+        if (Input.GetKeyDown("escape") || Input.GetButtonDown("Back"))
         {
             SceneManager.LoadScene("MainMenu");
         }
@@ -124,14 +150,26 @@ public class Player : MovingObject
 
         base.Update();
 
-        /* Plays footstep sounds on certain frames */
+        /* Plays sounds when animation fills criterium */
         SpawnSFX();
         WarpSFX();
+
+        /* Plays footstep sounds on certain frames */
         Footstep();
 
+        /* Touching wall logic */
+        touchingWall = !!Physics2D.Linecast(transform.position, wallCheck.position, 1 << LayerMask.NameToLayer("Ground")).collider && canJumpWall[transform.localScale.x < 0 ? 0 : 1];
+        rb2d.gravityScale = touchingWall && rb2d.velocity.y <= 0 ? wallSlideGravityScale : originalGravityScale;
+
+        /* Sprinting logic */
+        sprinting = Mathf.Abs(rb2d.velocity.x) > 0.075f && (Input.GetButton("Sprint") || Input.GetAxis("Sprint") != 0);
+
+        /* Set animation variables */
+        animator.SetBool("touching_wall", touchingWall);
         animator.SetBool("grabbing", grabbing);
         animator.SetBool("grounded", grounded);
         animator.SetBool("falling", rb2d.velocity.y < 0f && !grounded);
+        animator.SetBool("running", sprinting);
 
         /* Kill zone */
         if (transform.position.y < -60 && !dying)
@@ -141,21 +179,11 @@ public class Player : MovingObject
             return;
         }
 
-        /* Touching wall logic */
-        touchingWall = !!Physics2D.Linecast(transform.position, wallCheck.position, 1 << LayerMask.NameToLayer("Ground")).collider && canJumpWall[transform.localScale.x < 0 ? 0 : 1];
-        animator.SetBool("touching_wall", touchingWall);
-
-        rb2d.gravityScale = touchingWall && rb2d.velocity.y <= 0 ? wallSlideGravityScale : originalGravityScale;
-
         /* Jumping logic */
         if ((grounded || grabbing || touchingWall) && Input.GetButtonDown("Jump") && rb2d.constraints != RigidbodyConstraints2D.FreezePositionX)
         {
             jump = true;
         }
-
-        /* Sprinting logic */
-        sprinting = Mathf.Abs(rb2d.velocity.x) > 0.075f && (Input.GetButton("Sprint") || Input.GetAxis("Sprint") != 0);
-        animator.SetBool("running", sprinting);
 
         if (grabbing && Input.GetButton("Drop Down"))
         {
@@ -199,6 +227,7 @@ public class Player : MovingObject
     {
         dying = true;
         rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+        animator.SetBool("grabbing", false);
         animator.ResetTrigger("spawn");
         animator.SetTrigger("die");
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Death"));

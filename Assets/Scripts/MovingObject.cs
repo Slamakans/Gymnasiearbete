@@ -33,8 +33,6 @@ public class MovingObject : MonoBehaviour {
         {
             Jump();
         }
-
-        Move(new Vector2(Input.GetAxis("Horizontal"), 0));
     }
 
     protected virtual void Jump(float modifier = 1)
