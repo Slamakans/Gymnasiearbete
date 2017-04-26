@@ -17,7 +17,7 @@ public class StoneificationsUI_Number : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         cur = 0;
 
-        Debug.Log(numbers.Length);
+        // Debug.Log(numbers.Length);
     }
 
 	void Update () {

@@ -22,6 +22,8 @@ public class Player : MovingObject
 	public bool sprinting = false;
     public bool dying = false;
 
+    public float WallJumpForce = 300f;
+
     private bool[] canJumpWall = new bool[] { true, true };
 
     // Use this to connect the new TV to the grabbed TV? idk we gonna have a thunker about this one
@@ -36,12 +38,19 @@ public class Player : MovingObject
     public static bool HasRemote = false;
     public bool startWithRemote = true;
 
+    public AudioClip spawnSFX;
+    public AudioClip warpSFX;
+    public AudioClip[] footsteps;
+    private AudioSource audioSource;
+
     // Left in for backwards compatibility lmao
     public int GetStoneifications() { return stoneifications; }
 
     protected override void Start()
     {
         base.Start();
+        audioSource = GetComponent<AudioSource>();
+        Cursor.visible = false;
         spawnPoint = transform.position;
         animator = GetComponent<Animator>();
         originalGravityScale = rb2d.gravityScale;
@@ -49,6 +58,7 @@ public class Player : MovingObject
         if (!HasRemote && startWithRemote) HasRemote = true;
 
         // Kill();
+        // AudioSource.PlayClipAtPoint(spawnSFX, transform.position);
     }
 
     internal void SetSpawn(Vector3 position)
@@ -56,11 +66,11 @@ public class Player : MovingObject
         spawnPoint = new Vector3(position.x, position.y, 5f);
     }
 
-    protected override void Move(Vector2 dir, float modifier = 1, float force = 0)
+    protected override void Move(Vector2 dir, float modifier = 1)
     {
         if (grabbing) return;
         if (dir.x == 0 && grounded && !Slides) rb2d.velocity = new Vector2(0, rb2d.velocity.y);
-		base.Move(dir, Mathf.Abs(transform.localScale.x / 2) * ((sprinting || sprintJumping) ? 1.75f : 1f), MoveForce); // / (grounded ? 1 : 30));
+		base.Move(dir, Mathf.Abs(transform.localScale.x / 2) * ((sprinting || sprintJumping) ? 1.35f : 1f)); // / (grounded ? 1 : 30));
         animator.SetBool("moving", Mathf.Abs(rb2d.velocity.x) > 0.075f);
     }
 
@@ -71,7 +81,7 @@ public class Player : MovingObject
 
         LetGo();
 
-        base.Jump(Mathf.Abs(transform.localScale.x) / 2 * (performWallJump ? 1f : 1f));
+        base.Jump(Mathf.Abs(transform.localScale.x) / 2 * (performWallJump ? 1.2f : 1f));
 
         if (sprinting)
         {
@@ -80,43 +90,31 @@ public class Player : MovingObject
 
         if (performWallJump)
         {
-            base.Move(new Vector2(-transform.localScale.x, 0), 2);
+
+            //base.Move(new Vector2(-transform.localScale.x, 0), 2);//, WallJumpForce);
+            rb2d.AddForce(new Vector2(-transform.localScale.x * WallJumpForce, 0), ForceMode2D.Impulse);
+
+            FacingRight = !FacingRight;
+            int scaleSign = (int) Mathf.Sign(transform.localScale.x);
+            if ((FacingRight && scaleSign == -1) || (!FacingRight && scaleSign == 1))
+            {
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            }
+
             touchingWall = false;
             canJumpWall[wall] = false;
             StartCoroutine(ResetWall(wall));
         }
     }
 
+    // private bool spawning = false;
     protected override void Update()
     {
-        base.Update();
-        animator.SetBool("grabbing", grabbing);
-        animator.SetBool("grounded", grounded);
-        animator.SetBool("falling", rb2d.velocity.y < 0f && !grounded);
 
-        if (transform.position.y < -60 && !dying)
+        if (Input.GetKeyDown("escape"))
         {
-            Debug.Log("dying");
-            Kill();
-            return;
+            SceneManager.LoadScene("MainMenu");
         }
-
-        // Debug.Log(sprinting);
-
-        // Debug.Log("left: " + canJumpWall[0] + ",  right: " + canJumpWall[1]);
-
-        touchingWall = !!Physics2D.Linecast(transform.position, wallCheck.position, 1 << LayerMask.NameToLayer("Ground")).collider && canJumpWall[transform.localScale.x < 0 ? 0 : 1];
-        animator.SetBool("touching_wall", touchingWall);
-
-		if ((grounded || grabbing || touchingWall) && Input.GetButtonDown("Jump") && rb2d.constraints != RigidbodyConstraints2D.FreezePositionX)
-        {
-            jump = true;
-        }
-
-		sprinting = Mathf.Abs(rb2d.velocity.x) > 0.075f && (Input.GetButton("Sprint") || Input.GetAxis("Sprint") != 0);
-        animator.SetBool("running", sprinting); // consistent af shut up
-
-        rb2d.gravityScale = touchingWall && rb2d.velocity.y <= 0 ? wallSlideGravityScale : originalGravityScale;
 
         if (Input.GetButtonDown("Restart"))
         {
@@ -124,11 +122,56 @@ public class Player : MovingObject
             return;
         }
 
+        base.Update();
+
+        /* Plays footstep sounds on certain frames */
+        SpawnSFX();
+        WarpSFX();
+        Footstep();
+
+        animator.SetBool("grabbing", grabbing);
+        animator.SetBool("grounded", grounded);
+        animator.SetBool("falling", rb2d.velocity.y < 0f && !grounded);
+
+        /* Kill zone */
+        if (transform.position.y < -60 && !dying)
+        {
+            // Debug.Log("dying");
+            Kill();
+            return;
+        }
+
+        /* Touching wall logic */
+        touchingWall = !!Physics2D.Linecast(transform.position, wallCheck.position, 1 << LayerMask.NameToLayer("Ground")).collider && canJumpWall[transform.localScale.x < 0 ? 0 : 1];
+        animator.SetBool("touching_wall", touchingWall);
+
+        rb2d.gravityScale = touchingWall && rb2d.velocity.y <= 0 ? wallSlideGravityScale : originalGravityScale;
+
+        /* Jumping logic */
+        if ((grounded || grabbing || touchingWall) && Input.GetButtonDown("Jump") && rb2d.constraints != RigidbodyConstraints2D.FreezePositionX)
+        {
+            jump = true;
+        }
+
+        /* Sprinting logic */
+        sprinting = Mathf.Abs(rb2d.velocity.x) > 0.075f && (Input.GetButton("Sprint") || Input.GetAxis("Sprint") != 0);
+        animator.SetBool("running", sprinting);
+
         if (grabbing && Input.GetButton("Drop Down"))
         {
             LetGo();
         }
 
+        HandleGettingStoned();
+
+        if (Input.GetKeyDown("t"))
+        {
+            Kill();
+        }
+    }
+
+    private void HandleGettingStoned()
+    {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stoneify"))
         {
             rb2d.velocity = Vector3.zero;
@@ -149,24 +192,6 @@ public class Player : MovingObject
         else if (!grabbing && Player.HasRemote && Input.GetButtonDown("Stoneify") && stoneifications > 0)
         {
             animator.SetTrigger("stoneify");
-            /* skipping this stuff
-            if (grabbing)
-            {
-                if (transform.localScale.x > 0) // facing right
-                {
-                    // transform.position
-                    // try to place the player properly right now it's all misaligned and shit
-                }
-                else
-                {
-
-                }
-            }*/
-        }
-
-        if (Input.GetKeyDown("t"))
-        {
-            Kill();
         }
     }
 
@@ -197,7 +222,7 @@ public class Player : MovingObject
         rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
         yield return new WaitWhile(() => {
             return animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "PlayerInvisible" || animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "PlayerSpawn";
-         });
+        });
         rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
         dying = false;
     }
@@ -229,5 +254,51 @@ public class Player : MovingObject
         yield return new WaitForSeconds(0.15f);
         yield return new WaitUntil(() => grounded || touchingWall || (prev != transform.localScale.x > 0) || grabbing);
         sprintJumping = false;
+    }
+
+    private int GetFrame(int numFrames, float time)
+    {
+        float limited = time % 1;
+        return Mathf.FloorToInt(numFrames * limited);
+    }
+
+    private void Footstep()
+    {
+        AnimatorStateInfo curState = animator.GetCurrentAnimatorStateInfo(0);
+        int frame = GetFrame(8, curState.normalizedTime);
+        if ((
+            (curState.IsName("Walking") && (frame == 1 || frame == 5))
+            || (curState.IsName("Running") && frame == 1)
+            ) && !audioSource.isPlaying && grounded)
+        {
+            AudioClip footstep = footsteps[UnityEngine.Random.Range(0, footsteps.Length)];
+            audioSource.PlayOneShot(footstep, sprinting ? 0.85f : 0.35f);
+            // Debug.Log(footstep.name);
+        }
+    }
+
+    private void SpawnSFX()
+    {
+        AnimatorStateInfo curState = animator.GetCurrentAnimatorStateInfo(0);
+        if (!curState.IsName("Spawn")) return;
+
+        int frame = GetFrame(8, curState.normalizedTime);
+        if (frame == 0)
+        {
+            AudioSource.PlayClipAtPoint(spawnSFX, transform.position);
+        }
+        // Debug.Log("dying: " + dying);
+    }
+
+    private void WarpSFX()
+    {
+        AnimatorStateInfo curState = animator.GetCurrentAnimatorStateInfo(0);
+        if (!curState.IsName("Stoneify")) return;
+
+        int frame = GetFrame(5, curState.normalizedTime);
+        if (frame == 0)
+        {
+            AudioSource.PlayClipAtPoint(warpSFX, transform.position);
+        }
     }
 }

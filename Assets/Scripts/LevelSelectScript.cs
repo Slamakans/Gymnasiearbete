@@ -13,7 +13,7 @@ public class LevelSelectScript : MonoBehaviour {
 
     void Update ()
     {
-        Debug.Log(buttons);
+        // Debug.Log(buttons);
         int index = 0;
         foreach (Button button in buttons)
         {

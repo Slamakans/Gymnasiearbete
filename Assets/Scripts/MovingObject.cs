@@ -3,9 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class MovingObject : MonoBehaviour {
-    [SerializeField]
-    public float MoveForce = 365f;
-    public float MaxSpeed = 5f;
+    public float MaxSpeed = 20f;
     public float JumpForce = 20f;
     public bool FacingRight = true;
     public Rigidbody2D rb2d;
@@ -46,19 +44,31 @@ public class MovingObject : MonoBehaviour {
         jump = false;
     }
 
-    protected virtual void Move(Vector2 dir, float modifier = 1, float force = 0)
+    protected virtual void Move(Vector2 dir, float modifier = 1)
     {
-        if (force == 0) force = MoveForce;
-
         float h = dir.x;
 
-        if (h != 0)
-            rb2d.AddForce(Vector2.right * h * force * modifier);
+        if (h == 0) return;
 
-        if (Mathf.Abs(rb2d.velocity.x) > MaxSpeed * modifier)
-            rb2d.velocity = new Vector2(Mathf.Sign(rb2d.velocity.x) * MaxSpeed * modifier, rb2d.velocity.y);
+        bool slow = Mathf.Abs(rb2d.velocity.x) <= MaxSpeed * modifier;
 
-        if (h > 0) FacingRight = true; else if (h < 0) FacingRight = false;
+        if (!grounded)
+        {
+            float x = rb2d.velocity.x;
+            float min = slow ? -MaxSpeed * modifier : -Mathf.Abs(rb2d.velocity.x) ;
+            float max = slow ? MaxSpeed * modifier : Mathf.Abs(rb2d.velocity.x);
+            Debug.Log("Min: " + min + ", Max: " + max);
+            rb2d.velocity = new Vector2(Mathf.Clamp(rb2d.velocity.x + h * modifier * 3f, min, max), rb2d.velocity.y);
+            Debug.Log("velocity 1: " + rb2d.velocity);
+        }
+        else if (slow)
+        {
+            //rb2d.AddForce(Vector2.right * h * force * modifier);
+            rb2d.velocity = new Vector2(h * MaxSpeed * modifier, rb2d.velocity.y);
+            Debug.Log("velocity 2: " + rb2d.velocity);
+        }
+
+        FacingRight = rb2d.velocity.x > 0;
 
         var scaleSign = Mathf.Sign(transform.localScale.x);
         if ((FacingRight && scaleSign == -1) || (!FacingRight && scaleSign == 1))

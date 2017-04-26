@@ -141,7 +141,7 @@ public class CameraScript : MonoBehaviour
         // Y fine
         float vertExtent = Camera.main.orthographicSize;
         float horzExtent = vertExtent * (Screen.width / (float)Screen.height);
-        Debug.Log(Screen.width + "        " + (float)Screen.height);
+        // Debug.Log(Screen.width + "        " + (float)Screen.height);
 
         leftBound = bounds.min.x + horzExtent;//(horzExtent / 8f) * 5f;// * 0.75f;
         rightBound = bounds.max.x - horzExtent;//(horzExtent / 8f) * 5f;// * 0.75f;
