@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4833419415961714}
   - component: {fileID: 212012034320841960}
-  - component: {fileID: 61996483832321480}
   - component: {fileID: 114864258094244718}
+  - component: {fileID: 68810761169853008}
   m_Layer: 0
   m_Name: Flame Trap (PLACEHOLDER)
   m_TagString: Untagged
@@ -36,14 +36,14 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1473402901321246}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.201607, y: -58.852154, z: 2}
+  m_LocalPosition: {x: -93.99, y: -12.08, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61996483832321480
-BoxCollider2D:
+--- !u!68 &68810761169853008
+EdgeCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -51,22 +51,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.3470039}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 10.136377, y: 7.5459633}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+  - {x: -1.95, y: -1.9}
+  - {x: -1.95, y: -1.65}
+  - {x: -1.45, y: -0.55}
+  - {x: -1.05, y: -1.7}
+  - {x: -1.05, y: -1.7}
+  - {x: -0.99, y: -1.7}
+  - {x: -0.49, y: -0.55}
+  - {x: -0.05, y: -1.7}
+  - {x: 0.01, y: -1.7}
+  - {x: 0.5, y: -0.55}
+  - {x: 0.94, y: -1.7}
+  - {x: 0.99, y: -1.7}
+  - {x: 1.49, y: -0.55}
+  - {x: 1.93, y: -1.7}
+  - {x: 1.93, y: -1.9}
 --- !u!114 &114864258094244718
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,13 +111,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c86524c59a37cdf499a59ebc6b16cddd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0

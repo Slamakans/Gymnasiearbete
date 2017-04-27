@@ -158,6 +158,7 @@ public class CameraScript : MonoBehaviour
 
         bool hadToConfine = p.x != transform.position.x || p.y != transform.position.y;
         if (hadToConfine) transform.position = p;
+        Game.HadToConfineCamera = hadToConfine;
         return hadToConfine;
     }
 

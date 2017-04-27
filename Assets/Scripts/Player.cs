@@ -93,7 +93,24 @@ public class Player : MovingObject
 
             //base.Move(new Vector2(-transform.localScale.x, 0), 2);//, WallJumpForce);
             // lägg som y-värde för lite kontroll över hur högt man hoppar, kanske normalisera vektorn innan för consistent velocity från wall jumps: 5 * Input.GetAxis("Vertical"))
-            rb2d.AddForce(new Vector2(-transform.localScale.x * WallJumpForce * 0.6f * Mathf.Abs(Input.GetAxis("Horizontal")), 0, ForceMode2D.Impulse);
+            float h = Input.GetAxisRaw("Horizontal");
+            // Debug.Log(h);
+            float lx = -transform.localScale.x;
+
+            float x = lx;
+            float sign = Mathf.Sign(lx);
+            x *= WallJumpForce * 0.6f;
+            float min = FacingRight ? -1f : 0.4f;
+            float max = FacingRight ? 1f : -0.4f;
+
+            // Jump 80% horizontal if no input is given, else clamp the power between 40% and 100%
+            float clamped = h != 0 ? Mathf.Clamp(h, min, max) : 0.8f;
+            Debug.Log("clamped: " + clamped);
+            x = Mathf.Sign(x) * (x + Mathf.Abs(clamped));
+
+            rb2d.AddForce(new Vector2(x * 1.1f * (FacingRight ? -1f : 1f), 0), ForceMode2D.Impulse);
+            Debug.Log("x-force: " + x);
+            Debug.Log(FacingRight);
 
             FacingRight = !FacingRight;
             int scaleSign = (int) Mathf.Sign(transform.localScale.x);
@@ -242,7 +259,7 @@ public class Player : MovingObject
             Vector2 a = transform.position;
             Vector2 b = Camera.main.transform.position;
             float distance = (a - b).magnitude;
-            return distance < 0.01f;// || Camera.main.GetComponent<CameraScript>().ConstrainTest();
+            return distance < 0.01f || Game.HadToConfineCamera;// || Camera.main.GetComponent<CameraScript>().ConstrainTest();
         });
 
         // Player is at spawn, and so is camera

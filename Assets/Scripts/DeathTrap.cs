@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Collider2D))]
 public class DeathTrap : MonoBehaviour {
     public void Reset()
     {
-        GetComponent<BoxCollider2D>().isTrigger = true;
+        GetComponent<Collider2D>().isTrigger = true;
     }
 
     void OnTriggerEnter2D(Collider2D other)
