@@ -49,6 +49,7 @@ public class Player : MovingObject
     protected override void Start()
     {
         base.Start();
+        Game.StartTime = Time.realtimeSinceStartup;
         audioSource = GetComponent<AudioSource>();
         Cursor.visible = false;
         spawnPoint = transform.position;

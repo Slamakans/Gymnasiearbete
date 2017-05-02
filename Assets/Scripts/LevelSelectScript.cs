@@ -18,6 +18,16 @@ public class LevelSelectScript : MonoBehaviour {
         foreach (Button button in buttons)
         {
             button.interactable = index < LevelManager.LevelReached || index + 1 == buttons.Length;
+            if (button.name.Contains("Level"))
+            {
+
+                // Debug.Log();
+                Text timeText = button.transform.Find("TimeText").gameObject.GetComponent<Text>();
+                string bestTime = Game.GetBestTimeString(index);
+                Debug.Log(bestTime);
+                timeText.text = bestTime;
+            }
+
             index++;
         }
 

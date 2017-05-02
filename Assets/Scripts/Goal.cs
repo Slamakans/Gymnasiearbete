@@ -13,6 +13,13 @@ public class Goal : MonoBehaviour {
             if (int.TryParse(arr[Random.Range(0, arr.Length)], out index))
             {
                 LevelManager.LevelReached = Mathf.Max(index, LevelManager.LevelReached);
+
+                float timeTaken = Time.realtimeSinceStartup - Game.StartTime;
+                Debug.Log(timeTaken + "    " + Game.BEST_TIMES[index - 2]);
+                if (Game.BEST_TIMES[index - 2] == 0 || timeTaken < Game.BEST_TIMES[index - 2])
+                {
+                    Game.BEST_TIMES[index - 2] = timeTaken;
+                }
             }
             SceneManager.LoadScene(NextLevel.name);
         }
