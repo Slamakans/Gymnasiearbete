@@ -98,7 +98,7 @@ public class Player : MovingObject
             float lx = -transform.localScale.x;
 
             float x = lx;
-            float sign = Mathf.Sign(lx);
+            // float sign = Mathf.Sign(lx);
             x *= WallJumpForce * 0.6f;
             float min = FacingRight ? -1f : 0.4f;
             float max = FacingRight ? 1f : -0.4f;
@@ -319,7 +319,7 @@ public class Player : MovingObject
             ) && !audioSource.isPlaying && grounded)
         {
             AudioClip footstep = footsteps[UnityEngine.Random.Range(0, footsteps.Length)];
-            audioSource.PlayOneShot(footstep, sprinting ? 0.85f : 0.35f);
+            audioSource.PlayOneShot(footstep, sprinting ? 3.35f : 2.35f);
             // Debug.Log(footstep.name);
         }
     }
@@ -332,7 +332,7 @@ public class Player : MovingObject
         int frame = GetFrame(8, curState.normalizedTime);
         if (frame == 0)
         {
-            AudioSource.PlayClipAtPoint(spawnSFX, transform.position);
+            audioSource.PlayOneShot(spawnSFX, 0.5f);
         }
         // Debug.Log("dying: " + dying);
     }
@@ -345,7 +345,7 @@ public class Player : MovingObject
         int frame = GetFrame(5, curState.normalizedTime);
         if (frame == 0)
         {
-            AudioSource.PlayClipAtPoint(warpSFX, transform.position);
+            audioSource.PlayOneShot(warpSFX, 0.5f);
         }
     }
 }

@@ -53,7 +53,7 @@ public class MovingObject : MonoBehaviour {
         if (!grounded)
         {
             float x = rb2d.velocity.x;
-            float min = slow ? -MaxSpeed * modifier : -Mathf.Abs(x) ;
+            float min = slow ? -MaxSpeed * modifier : -Mathf.Abs(x);
             float max = slow ? MaxSpeed * modifier : Mathf.Abs(x);
             // Debug.Log("Min: " + min + ", Max: " + max);
             rb2d.velocity = new Vector2(Mathf.Clamp(x + h * modifier * 3f, min, max), rb2d.velocity.y);
