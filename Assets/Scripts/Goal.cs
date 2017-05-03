@@ -10,15 +10,18 @@ public class Goal : MonoBehaviour {
         {
             int index = 0;
             string[] arr = NextLevel.name.Split(' ');
-            if (int.TryParse(arr[Random.Range(0, arr.Length)], out index))
+            if (int.TryParse(arr[1], out index))
             {
                 LevelManager.LevelReached = Mathf.Max(index, LevelManager.LevelReached);
 
                 float timeTaken = Time.realtimeSinceStartup - Game.StartTime;
-                Debug.Log(timeTaken + "    " + Game.BEST_TIMES[index - 2]);
-                if (Game.BEST_TIMES[index - 2] == 0 || timeTaken < Game.BEST_TIMES[index - 2])
+                int level = index - 1;
+                float prevTime = PlayerPrefs.GetFloat("level " + level + " best time", 0f);
+                Debug.Log("Level boi " + level + ", time taken: " + timeTaken);
+                Debug.Log(prevTime);
+                if (prevTime == 0 || timeTaken < prevTime)
                 {
-                    Game.BEST_TIMES[index - 2] = timeTaken;
+                    PlayerPrefs.SetFloat("level " + level + " best time", timeTaken);
                 }
             }
             SceneManager.LoadScene(NextLevel.name);

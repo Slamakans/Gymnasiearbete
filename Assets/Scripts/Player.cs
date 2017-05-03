@@ -57,9 +57,6 @@ public class Player : MovingObject
         originalGravityScale = rb2d.gravityScale;
 
         if (!HasRemote && startWithRemote) HasRemote = true;
-
-        // Kill();
-        // AudioSource.PlayClipAtPoint(spawnSFX, transform.position);
     }
 
     internal void SetSpawn(Vector3 position)

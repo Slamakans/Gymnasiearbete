@@ -13,22 +13,18 @@ public class LevelSelectScript : MonoBehaviour {
 
     void Update ()
     {
-        // Debug.Log(buttons);
         int index = 0;
         foreach (Button button in buttons)
         {
-            button.interactable = index < LevelManager.LevelReached || index + 1 == buttons.Length;
+            button.interactable = index < LevelManager.LevelReached || button.name == "MainMenu" || button.name == "Reset";
             if (button.name.Contains("Level"))
             {
-
-                // Debug.Log();
                 Text timeText = button.transform.Find("TimeText").gameObject.GetComponent<Text>();
-                string bestTime = Game.GetBestTimeString(index);
-                Debug.Log(bestTime);
+                string bestTime = Game.GetBestTimeString(index + 1);
                 timeText.text = bestTime;
-            }
 
-            index++;
+                index++;
+            }
         }
 
         if (Input.GetButtonDown("Cancel"))
@@ -40,5 +36,17 @@ public class LevelSelectScript : MonoBehaviour {
     public void Goto (Button button)
     {
         SceneManager.LoadScene(button.name);
+    }
+
+    public void ResetProgress ()
+    {
+        Debug.Log("num levels: " + Game.NUM_LEVELS);
+        for (int i = 0; i < Game.NUM_LEVELS; i++)
+        {
+            Game.SetBestTime(i + 1, 0f);
+            LevelManager.LevelReached = 1;
+
+            // SceneManager.LoadScene("LevelSelect");
+        }
     }
 }

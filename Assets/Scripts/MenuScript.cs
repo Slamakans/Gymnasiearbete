@@ -19,15 +19,61 @@ public class MenuScript : MonoBehaviour {
 
     void Start ()
     {
+
         buttons = GameObject.FindGameObjectsWithTag("MenuButton");
         foreach (GameObject button in buttons)
         {
             button.SetActive(false);
         }
+
+        // StartCoroutine(Load());
+        if (!Game.LOADED)
+        {
+            GameObject.Find("Canvas").SetActive(false);
+
+            StartCoroutine(Load());
+        }
     }
+
+    private IEnumerator Load ()
+    {
+        yield return new WaitUntil(() => Game.LOADED);
+        GameObject.Find("Canvas").SetActive(true);
+    }
+
+    /*private IEnumerator Load()
+    {
+        if (Game.LOADED) yield break;
+
+        Debug.Log("Loading: " + Time.realtimeSinceStartup);
+        yield return StartCoroutine(LoadScenes());
+        Debug.Log("Loading finished: " + Time.realtimeSinceStartup);
+        Game.LOADED = true;
+        GameObject.Find("Canvas").SetActive(true);
+    }
+
+    private IEnumerator LoadScenes ()
+    {
+        bool valid = true;
+        for (int i = 1; valid; i++)
+        {
+            AsyncOperation op = SceneManager.LoadSceneAsync("Level " + i);
+            op.allowSceneActivation = false;
+            yield return new WaitUntil(() => op.progress == 0.9f);
+
+            Debug.Log("Loaded level " + i);
+            valid = SceneManager.GetSceneByName("Level " + i).IsValid();
+            Debug.Log("valid: " + valid);
+        }
+
+        SceneManager.LoadScene("MainMenu");
+        Game.InitBestTimes();
+    }*/
 
     void Update ()
     {
+        if (!Game.LOADED) return;
+
         if (!Game.MAIN_MENU_INITIALIZED && Input.anyKeyDown)
         {
             InitializeMenu();
