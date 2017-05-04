@@ -128,7 +128,7 @@ public class Player : MovingObject
     {
         base.FixedUpdate();
 
-        if (!touchingWall)
+        if (!touchingWall || grounded)
         {
             tugging = false;
             Move(new Vector2(Input.GetAxis("Horizontal"), 0));
