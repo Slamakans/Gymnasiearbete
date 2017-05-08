@@ -25,3 +25,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
   - enabled: 0
     path: Assets/Scenes/Level X.unity
+  - enabled: 1
+    path: Assets/Scenes/SplashScreen.unity

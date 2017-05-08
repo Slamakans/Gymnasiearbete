@@ -102,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014235441946}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.457, y: -1.016, z: 0}
+  m_LocalPosition: {x: -0.457, y: -1.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000012845723040}
@@ -115,7 +115,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010881048756}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.452, y: -1.015, z: 0}
+  m_LocalPosition: {x: 0.452, y: -1.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000012845723040}
@@ -141,7 +141,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012848951134}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -91, y: 3, z: 5}
+  m_LocalPosition: {x: -92.7, y: -6.1, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 4000010568738226}
@@ -365,7 +365,7 @@ MonoBehaviour:
   StonePlayer: {fileID: 4000010034754048, guid: e987428a159600a48924a14cfcbfafb2,
     type: 2}
   stoneifications: 0
-  startWithRemote: 0
+  startWithRemote: 1
   spawnSFX: {fileID: 8300000, guid: 83b6f719d1cffdf4c920871c1ca851dc, type: 3}
   warpSFX: {fileID: 8300000, guid: ff1b81b2dd4a66f4285d055abe42c4ac, type: 3}
   footsteps:

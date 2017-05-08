@@ -661,6 +661,7 @@ GameObject:
   - component: {fileID: 1164356370}
   - component: {fileID: 1164356369}
   - component: {fileID: 1164356372}
+  - component: {fileID: 1164356373}
   m_Layer: 0
   m_Name: background
   m_TagString: Untagged
@@ -742,11 +743,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 25714b48618eb7f4bb348136dac3dfab, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -800,7 +801,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -813,6 +814,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1164356373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1164356368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b132b3659bc7c4ea842950fa442f6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  engineStartClip: {fileID: 8300000, guid: 16a1d6558a5cad146aee6c2309929b56, type: 3}
+  engineLoopClip: {fileID: 8300000, guid: d50c0999989698148bbebaba55459bd2, type: 3}
 --- !u!1 &1489960277
 GameObject:
   m_ObjectHideFlags: 0
