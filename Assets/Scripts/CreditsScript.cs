@@ -24,7 +24,7 @@ public class CreditsScript : MonoBehaviour {
                 Cursor.visible = true;
                 MenuScript.CANVAS.SetActive(true);
             }
-            else if (r.color == Color.white || Input.GetButtonDown("Start"))
+            else if (r.color == Color.white || Input.GetButtonDown("Start") || Input.GetKeyDown("h"))
             {
                 r.color = r.color == Color.white ? new Color(0f, 0f, 0f, 0f) : Color.white;
             }

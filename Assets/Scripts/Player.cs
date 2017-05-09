@@ -208,10 +208,10 @@ public class Player : MovingObject
 
         HandleGettingStoned();
 
-        if (Input.GetKeyDown("t"))
+        /*if (Input.GetKeyDown("t"))
         {
             Kill();
-        }
+        }*/
     }
 
     private void HandleGettingStoned()

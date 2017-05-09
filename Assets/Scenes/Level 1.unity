@@ -15788,7 +15788,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 673de81c5367af748b8617f89f12249c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 17577361603e7eb47b19f88dd62952e5, type: 3}
   m_Color: {r: 0.23826772, g: 0.2767308, b: 0.28676468, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -15814,9 +15814,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -0.06330466, y: -0.18991685}
+  m_Offset: {x: -0.020697456, y: -0.16862051}
   serializedVersion: 2
-  m_Size: {x: 5.510325, y: 3.8356967}
+  m_Size: {x: 2.1029568, y: 5.3264265}
 --- !u!1001 &1221129635
 Prefab:
   m_ObjectHideFlags: 0
