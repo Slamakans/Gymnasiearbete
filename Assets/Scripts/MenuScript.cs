@@ -11,6 +11,8 @@ public class MenuScript : MonoBehaviour {
     public Button CREDITS;
     public Button EXIT_GAME;
 
+    public static GameObject CANVAS;
+
     public GameObject PRESS_ANY_KEY_TEXT;
 
     private GameObject[] buttons;
@@ -19,6 +21,8 @@ public class MenuScript : MonoBehaviour {
 
     void Start ()
     {
+        CANVAS = GameObject.Find("Canvas");
+        Cursor.visible = true;
 
         buttons = GameObject.FindGameObjectsWithTag("MenuButton");
         foreach (GameObject button in buttons)
@@ -134,17 +138,21 @@ public class MenuScript : MonoBehaviour {
 
     public void OnLevelSelect ()
     {
-        SceneManager.LoadScene("LevelSelect");
+        SceneManager.LoadScene("LevelSelect", LoadSceneMode.Additive);
     }
 
     public void OnHelp ()
     {
-        SceneManager.LoadScene("Help");
+        CreditsScript.CURRENT_SCENE = "Help";
+
+        SceneManager.LoadScene(CreditsScript.CURRENT_SCENE, LoadSceneMode.Additive);
     }
 
     public void OnCredits ()
     {
-        SceneManager.LoadScene("Credits");
+        CreditsScript.CURRENT_SCENE = "Credits";
+
+        SceneManager.LoadScene(CreditsScript.CURRENT_SCENE, LoadSceneMode.Additive);
     }
 
     public void OnExitGame ()

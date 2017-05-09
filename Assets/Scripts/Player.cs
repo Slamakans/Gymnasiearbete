@@ -216,6 +216,8 @@ public class Player : MovingObject
 
     private void HandleGettingStoned()
     {
+        if (dying) return;
+
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stoneify"))
         {
             rb2d.velocity = Vector3.zero;

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class LevelSelectScript : MonoBehaviour {
 
@@ -8,6 +9,8 @@ public class LevelSelectScript : MonoBehaviour {
 
     void Start ()
     {
+        MenuScript.CANVAS.SetActive(false);
+        Cursor.visible = true;
         buttons = GetComponentsInChildren<Button>();
     }
 
@@ -22,6 +25,14 @@ public class LevelSelectScript : MonoBehaviour {
                 Text timeText = button.transform.Find("TimeText").gameObject.GetComponent<Text>();
                 string bestTime = Game.GetBestTimeString(index + 1);
                 timeText.text = bestTime;
+                if (bestTime != "N/A")
+                {
+                    timeText.color = Color.white;
+                }
+                else
+                {
+                    timeText.color = new Color(188, 188, 188, 255) / 255f;
+                }
 
                 index++;
             }
@@ -29,12 +40,17 @@ public class LevelSelectScript : MonoBehaviour {
 
         if (Input.GetButtonDown("Cancel"))
         {
-            SceneManager.LoadScene("MainMenu");
+            GoBack();
         }
     }
 
     public void Goto (Button button)
     {
+        if (button.name == "MainMenu")
+        {
+            GoBack();
+            return;
+        }
         SceneManager.LoadScene(button.name);
     }
 
@@ -47,6 +63,19 @@ public class LevelSelectScript : MonoBehaviour {
             LevelManager.LevelReached = 1;
 
             // SceneManager.LoadScene("LevelSelect");
+        }
+    }
+
+    private void GoBack ()
+    {
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            SceneManager.UnloadSceneAsync("LevelSelect");
+            MenuScript.CANVAS.SetActive(true);
+        }
+        else
+        {
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

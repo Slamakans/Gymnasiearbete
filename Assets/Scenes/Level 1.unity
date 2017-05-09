@@ -1339,9 +1339,8 @@ Prefab:
     - target: {fileID: 114000011396929624, guid: 76fe4e0f0b013bb4f811dff5847600ef,
         type: 2}
       propertyPath: NextLevel
-      value: 
-      objectReference: {fileID: 102900000, guid: c764b0331dbf94a4486cfd7b7f7cf84e,
-        type: 3}
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 212000010094989994, guid: 76fe4e0f0b013bb4f811dff5847600ef,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
