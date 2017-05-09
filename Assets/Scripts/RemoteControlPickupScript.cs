@@ -11,6 +11,7 @@ public class RemoteControlPickupScript : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.tag != "Player") return;
         StartCoroutine(PlayCutscene());
     }
 
@@ -23,7 +24,7 @@ public class RemoteControlPickupScript : MonoBehaviour
         GameObject HUD = GameObject.Find("HUD");
         HUD.SetActive(false);
 
-        GameObject player = Game.player;
+        GameObject player = Game.Player();
         Rigidbody2D p_rb2d = player.GetComponent<Rigidbody2D>();
 
         Vector3 center = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
@@ -77,5 +78,7 @@ public class RemoteControlPickupScript : MonoBehaviour
 
         Player.HasRemote = true;
         Destroy(gameObject);
+
+        p_rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 }

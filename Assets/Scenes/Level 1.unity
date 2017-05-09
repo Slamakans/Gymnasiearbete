@@ -21978,6 +21978,11 @@ Prefab:
       propertyPath: WallJumpForce
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013978837680, guid: 6204be43f115cbb48b5de1c6fac47fce,
+        type: 2}
+      propertyPath: startWithRemote
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6204be43f115cbb48b5de1c6fac47fce, type: 2}
   m_IsPrefabParent: 0

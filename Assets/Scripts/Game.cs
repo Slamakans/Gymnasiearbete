@@ -6,8 +6,12 @@ using UnityEngine.SceneManagement;
 public class Game {
     public static bool LOADED = false;
     public static bool MAIN_MENU_INITIALIZED = false;
-    public static GameObject player = GameObject.FindGameObjectWithTag("Player");
     public static bool HadToConfineCamera;
+
+    public static GameObject Player ()
+    {
+        return GameObject.FindGameObjectWithTag("Player");
+    }
 
     public static int NUM_LEVELS;
 
